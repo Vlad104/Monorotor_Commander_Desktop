@@ -1,11 +1,11 @@
 #pragma once
-#include "Command.h"
+#include "Protocol.h"
 
-class ActCom : public Command {
+class ActionProtocol : public Protocol {
 public:
-	ActCom();
-	ActCom(char mode, char action);
-	~ActCom() {};
+	ActionProtocol();
+	ActionProtocol(char mode, char action);
+	~ActionProtocol() {};
 	bool get_command(std::string& result);
 
 private:

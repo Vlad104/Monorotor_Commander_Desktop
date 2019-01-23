@@ -22,6 +22,8 @@ private slots:
 
     void on_pushButton_com_clicked();
 
+    void on_pushButton_add_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort serial;

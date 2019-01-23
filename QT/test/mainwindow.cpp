@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QDebug>
+#include <QStandardItem>
 
 #include <iostream>
 #include "../../ParamCom.h"
@@ -85,4 +86,9 @@ void MainWindow::on_pushButton_com_clicked()
         }
     }
 
+}
+
+void MainWindow::on_pushButton_add_clicked()
+{
+    //ui->tableView->setModel();
 }
