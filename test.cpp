@@ -1,29 +1,24 @@
 #include <iostream>
-#include "ParamCom.h"
-#include "ActCom.h"
+#include "DataModel.h"
+#include "TransmitController.h"
+
+#include "OrderModel.h"
 
 int main() {
 	std::cout << "START" << std::endl;
 
-	Command* command;
-	int command_type = 0;
+	OrderModel order;
+	order.emplace_back(DataModel('0', 111000, 222000, 33000, 99, 4444, 5555, 1, 1, false));
+	order.emplace_back(DataModel('1', 123456, 999999, 1000, 50, 4444, 5555, 1, 2, true));
+	order.emplace_back(DataModel('2', 999999, 1000, 123456, 1, 4444, 5555, 2, 1, false));
+	order.emplace_back(DataModel('2', 2000, 22000, 2010, 75, 4444, 5555, 100, 1, true));
+	order.emplace_back(DataModel('2', 2000, 22000, 2010, 75, 4444, 5555, 100, 1, true));
+	order.emplace_back(DataModel('2', 2000, 22000, 2010, 75, 4444, 5555, 100, 1, false));
 
-	if (command_type == 0) {
-		command = new ParamCom('2', "0150", "160", "750", "010");
-	} else if (command_type == 1) {
-		command = new ActCom('0', '1');
-	} else {
-		std::cout << "ERROR 1" << std::endl;
-		return 0;
+	TransmitController ctrl(order);
+	while (!ctrl.is_empty()) {
+		std::cout << ctrl.get_command() << std::endl;
 	}
 
-	std::string result;
-	if (command->get_command(result)) {
-		std::cout << result << std::endl;
-		std::cout << "OK" << std::endl;		
-	} else {
-		std::cout << "ERROR 2" << std::endl;		
-	}
-	delete command;
 	return 0;
 }

@@ -1,22 +1,23 @@
 #include "ActionProtocol.h"
 
 ActionProtocol::ActionProtocol() :
-	id_('='), mode_('0'), action_('0')
+	mode_('0'), action_('0')
 {}
 
 ActionProtocol::ActionProtocol(char mode, char action) :
-	id_('='), mode_(mode), action_(action)
+	mode_(mode), action_(action)
 {}
 
-bool ActionProtocol::get_command(std::string& result) {
-	return make_command(result);
+std::string ActionProtocol::get_command() {
+	return make_command();
 }
 
-bool ActionProtocol::make_command(std::string& result) {
+std::string ActionProtocol::make_command() {
+	std::string result;
 
 	result += id_;
 	result += mode_;
 	result += action_;
 
-	return true;
+	return result;
 }

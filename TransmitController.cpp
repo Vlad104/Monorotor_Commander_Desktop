@@ -1,8 +1,12 @@
 #include "TransmitController.h"
 
-TransmitController::TransmitController(const OrderModel& order) : model_(order_) {}
+TransmitController::TransmitController() : prev_parameters("") {
+	make_transmit_data();
+}
 
-TransmitController::~TransmitController() {}
+TransmitController::TransmitController(const OrderModel& order) : order_(order), prev_parameters("") {
+	make_transmit_data();
+}
 
 bool TransmitController::is_empty() {
 	return transmit_data_.empty();
@@ -15,17 +19,21 @@ std::string TransmitController::get_command() {
 }
 
 void TransmitController::make_transmit_data() {
-	for (const auto& model : order_) {
+	for (auto& model : order_) {
 		prepare_model(model);
 	}
 }
 
-void TransmitController::prepare_model(const DataModel& model) {
-	ParametersProtocol parameters(model.get_dozator(), model.get_volume(), model.get_feedrate(), model.get_ratio(), model.get_reverse());
-	std::string temp;
-	parameters.get_command(temp);
-	temp.clear();
-	//// остальные команды
+void TransmitController::prepare_model(DataModel& model) {
 
-	transmit_data_.push(dadsaasd);
+	ParametersProtocol params(model);
+	std::string parameters = params.get_command();
+	if (parameters != prev_parameters) {
+		transmit_data_.push(parameters);
+		prev_parameters = parameters;
+	}
+
+	ActionProtocol act('0', '1');
+	transmit_data_.push(act.get_command());
+	
 }

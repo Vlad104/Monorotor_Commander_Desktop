@@ -1,17 +1,18 @@
 #pragma once
 #include "Protocol.h"
 
+
 class ActionProtocol : public Protocol {
 public:
 	ActionProtocol();
 	ActionProtocol(char mode, char action);
-	~ActionProtocol() {};
-	bool get_command(std::string& result);
+	~ActionProtocol() = default;
+	std::string get_command();
 
 private:
-	char id_;
+	const char id_ = '=';
 	char mode_;
 	char action_;
 
-	bool make_command(std::string& result);
+	std::string make_command();
 };
