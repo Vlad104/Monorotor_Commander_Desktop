@@ -12,8 +12,6 @@ public:
 	ParametersProtocol();	
 	ParametersProtocol(char dozators, uint32_t volume, uint32_t feedrate, double ratio, uint32_t reverse);
 	ParametersProtocol(DataModel& model); 
-
-	////////////////////////////////////////////
 	~ParametersProtocol() = default;
 	std::string get_command();
 

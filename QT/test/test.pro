@@ -28,14 +28,20 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        ../../ParamCom.cpp \
-        ../../ActCom.cpp
+        ../../DataModel.cpp \
+        ../../TransmitController.cpp \
+        ../../Protocol.cpp \
+        ../../ActionProtocol.cpp \
+        ../../ParametersProtocol.cpp
 
 HEADERS += \
         mainwindow.h \
-        ../../Command.h \
-        ../../ParamCom.h \
-        ../../ActCom.h
+        ../../DataModel.h \
+        ../../OrderModel.h \
+        ../../TransmitController.h \
+        ../../Protocol.h \
+        ../../ActionProtocol.h \
+        ../../ParametersProtocol.h
 
 FORMS += \
         mainwindow.ui

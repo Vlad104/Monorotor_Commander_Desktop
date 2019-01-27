@@ -5,8 +5,6 @@
 #include <QStandardItem>
 
 #include <iostream>
-#include "../../ParamCom.h"
-#include "../../ActCom.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -49,28 +47,7 @@ void MainWindow::serial_disconnect() {
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString qV = ui->lineEdit->text();
-    QString qF = ui->lineEdit_2->text();
-    QString qR = ui->lineEdit_3->text();
-    QString qRev = ui->lineEdit_4->text();
-
-    std::string V = qV.toUtf8().constData();
-    std::string F = qF.toUtf8().constData();
-    std::string R = qR.toUtf8().constData();
-    std::string Rev = qRev.toUtf8().constData();
-
-    Command* command = new ParamCom('2', V, F, R, Rev);
-    std::string result;
-    if (command->get_command(result)) {
-        std::cout << result << std::endl;
-        std::cout << "OK" << std::endl;
-    } else {
-        std::cout << "ERROR 2" << std::endl;
-    }
-    delete command;
-    QMessageBox::information(this, "fddddd", QString::fromUtf8(result.data(), result.size()));
-
-    serial.write(result.data(), result.size());
+    QMessageBox::information(this, "fddddd", "fddddd");
 }
 
 void MainWindow::on_pushButton_com_clicked()
@@ -91,4 +68,44 @@ void MainWindow::on_pushButton_com_clicked()
 void MainWindow::on_pushButton_add_clicked()
 {
     //ui->tableView->setModel();
+}
+
+void MainWindow::on_pushButton_transmit_clicked()
+{
+    QString qV = ui->lineEdit->text();
+    QString qF = ui->lineEdit_2->text();
+    QString qRa = ui->lineEdit_3->text();
+    QString qRb = ui->lineEdit_5->text();
+    QString qRev = ui->lineEdit_4->text();
+
+    //std::string V = qV.toUtf8().constData();
+    //std::string F = qF.toUtf8().constData();
+    //std::string R = qR.toUtf8().constData();
+    //std::string Rev = qRev.toUtf8().constData();
+
+    uint32_t iV = qV.toUInt();
+    uint32_t iF = qF.toUInt();
+    double iRa = qRa.toDouble();
+    double iRb = qVRb.toDouble();
+    uint32_t iRev = qRev.toUInt();
+
+    char dozators = '2';
+    uint32_t iA = 20000;
+    double Wa = 2000;
+    double Wb = 2000;
+    bool dir = true;
+
+
+    OrderModel order;
+    order.emplace_back(DataModel(dozators, iV, iF, iA, iRev, Wa, Wb, iRa, iRb, dir));
+    transmit(order);
+}
+
+void MainWindow::transmit(const OrderModel& order) {
+    TransmitController ctrl(order);
+    while (!ctrl.is_empty()) {
+        std::string command = ctrl.get_command();
+        std::cout << command << std::endl;
+        serial.write(command.data(), command.size());
+    }
 }

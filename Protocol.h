@@ -3,7 +3,7 @@
 
 class Protocol {
 public:
-	Protocol() {};
+	Protocol() = default;
 	virtual ~Protocol() = default;
 	virtual std::string get_command() = 0;
 
