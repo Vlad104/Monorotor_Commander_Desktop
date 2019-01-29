@@ -149,16 +149,21 @@ bool DataModel::change_direction() {
 	return direction_;
 }
 
-void DataModel::print(std::ostream& out) {
-	out << get_dozators() << std::endl;
-	out << get_volume() << std::endl;
-	out << get_feedrate() << std::endl;
-	out << get_accel() << std::endl;
-	out << get_reverse() << std::endl;
-	out << get_gear_A() << std::endl;
-	out << get_gear_B() << std::endl;
-	out << get_ratio_A() << std::endl;
-	out << get_ratio_B() << std::endl;
-	out << get_ratio() << std::endl;
-	out << get_direction() << std::endl;
-} 
+std::string DataModel::to_print() {
+	std::string result;
+	std::stringstream buffer;
+
+	buffer << "D: " << dozators_ << " ";
+	buffer << "V: " << volume_ << " ";
+	buffer << "F: " << feedrate_ << " ";
+	buffer << "R: " << reverse_  << " ";
+	buffer << "A:B = " << ratio_A_ << "/" << ratio_B_ << " ";
+	//buffer << "Wa: " << gear_A_ << " ";
+	//buffer << "Wb: " << gear_B_ << " ";
+	//buffer << "A: " << accel_ << " ";
+	//buffer << "d: " << direction_ << " ";
+
+	result = buffer.str();
+
+	return result;
+}

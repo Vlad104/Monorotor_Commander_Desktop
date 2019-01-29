@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PARAMETERS_PROTOCOL_H
+#define PARAMETERS_PROTOCOL_H
+
 #include "Protocol.h"
 #include "DataModel.h"
 
@@ -31,3 +33,5 @@ private:
 	void make_conversion();
 	std::string make_command();
 };
+
+#endif // PARAMETERS_PROTOCOL_H

@@ -1,7 +1,8 @@
-#pragma once
+#ifndef DATA_MODEL_H
+#define DATA_MODEL_H
 
-#include <ostream>
 #include <string>
+#include <sstream>
 
 class DataModel {
 public:
@@ -39,7 +40,7 @@ public:
 	void set_direction(bool direction);
 
 	bool change_direction();
-	void print(std::ostream& out);
+	std::string to_print();
 
 private:
 	char dozators_;		// dozators mode
@@ -53,3 +54,5 @@ private:
 	double ratio_B_;	// volume_B / (volume)
 	bool direction_;	// 
 };
+
+#endif // DATA_MODEL_H

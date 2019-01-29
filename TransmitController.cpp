@@ -1,10 +1,10 @@
 #include "TransmitController.h"
 
-TransmitController::TransmitController() : prev_parameters("") {
+TransmitController::TransmitController() : prev_parameters_("") {
 	make_transmit_data();
 }
 
-TransmitController::TransmitController(const OrderModel& order) : order_(order), prev_parameters("") {
+TransmitController::TransmitController(const OrderModel& order) : order_(order), prev_parameters_("") {
 	make_transmit_data();
 }
 
@@ -28,9 +28,9 @@ void TransmitController::prepare_model(DataModel& model) {
 
 	ParametersProtocol params(model);
 	std::string parameters = params.get_command();
-	if (parameters != prev_parameters) {
+	if (parameters != prev_parameters_) {
 		transmit_data_.push(parameters);
-		prev_parameters = parameters;
+		prev_parameters_ = parameters;
 	}
 
 	ActionProtocol act('0', '1');

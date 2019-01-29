@@ -19,6 +19,7 @@
 #include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
@@ -47,9 +48,19 @@ public:
     QLineEdit *lineEdit_gearB;
     QLabel *label_gearB;
     QCheckBox *checkBox_dir;
+    QPushButton *pushButton_specChange;
     QComboBox *comboBox_dozators;
+    QPushButton *pushButton_add;
+    QPushButton *pushButton_singleStart;
     QFrame *frame_order;
     QListView *listView_order;
+    QPushButton *pushButton_start;
+    QPushButton *pushButton_delete;
+    QPushButton *pushButton_reset;
+    QFrame *frame_com;
+    QComboBox *comboBox_com;
+    QPushButton *pushButton_com;
+    QLabel *label_com;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -58,7 +69,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(666, 573);
+        MainWindow->resize(767, 642);
         QFont font;
         font.setPointSize(12);
         MainWindow->setFont(font);
@@ -67,7 +78,7 @@ public:
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         frame_model = new QFrame(centralWidget);
         frame_model->setObjectName(QString::fromUtf8("frame_model"));
-        frame_model->setGeometry(QRect(20, 50, 291, 441));
+        frame_model->setGeometry(QRect(10, 80, 291, 441));
         frame_model->setFrameShape(QFrame::StyledPanel);
         frame_model->setFrameShadow(QFrame::Plain);
         lineEdit_volume = new QLineEdit(frame_model);
@@ -154,21 +165,53 @@ public:
         checkBox_dir = new QCheckBox(frame_details);
         checkBox_dir->setObjectName(QString::fromUtf8("checkBox_dir"));
         checkBox_dir->setGeometry(QRect(10, 100, 211, 17));
+        pushButton_specChange = new QPushButton(frame_details);
+        pushButton_specChange->setObjectName(QString::fromUtf8("pushButton_specChange"));
+        pushButton_specChange->setGeometry(QRect(10, 130, 101, 23));
         comboBox_dozators = new QComboBox(frame_model);
         comboBox_dozators->setObjectName(QString::fromUtf8("comboBox_dozators"));
         comboBox_dozators->setGeometry(QRect(20, 180, 161, 22));
+        pushButton_add = new QPushButton(frame_model);
+        pushButton_add->setObjectName(QString::fromUtf8("pushButton_add"));
+        pushButton_add->setGeometry(QRect(10, 400, 121, 23));
+        pushButton_singleStart = new QPushButton(frame_model);
+        pushButton_singleStart->setObjectName(QString::fromUtf8("pushButton_singleStart"));
+        pushButton_singleStart->setGeometry(QRect(160, 400, 121, 23));
         frame_order = new QFrame(centralWidget);
         frame_order->setObjectName(QString::fromUtf8("frame_order"));
-        frame_order->setGeometry(QRect(330, 50, 311, 441));
+        frame_order->setGeometry(QRect(320, 80, 421, 441));
         frame_order->setFrameShape(QFrame::StyledPanel);
         frame_order->setFrameShadow(QFrame::Plain);
         listView_order = new QListView(frame_order);
         listView_order->setObjectName(QString::fromUtf8("listView_order"));
-        listView_order->setGeometry(QRect(20, 20, 256, 192));
+        listView_order->setGeometry(QRect(10, 11, 401, 211));
+        pushButton_start = new QPushButton(frame_order);
+        pushButton_start->setObjectName(QString::fromUtf8("pushButton_start"));
+        pushButton_start->setGeometry(QRect(290, 230, 121, 23));
+        pushButton_delete = new QPushButton(frame_order);
+        pushButton_delete->setObjectName(QString::fromUtf8("pushButton_delete"));
+        pushButton_delete->setGeometry(QRect(10, 230, 111, 23));
+        pushButton_reset = new QPushButton(frame_order);
+        pushButton_reset->setObjectName(QString::fromUtf8("pushButton_reset"));
+        pushButton_reset->setGeometry(QRect(130, 230, 111, 23));
+        frame_com = new QFrame(centralWidget);
+        frame_com->setObjectName(QString::fromUtf8("frame_com"));
+        frame_com->setGeometry(QRect(10, 10, 291, 61));
+        frame_com->setFrameShape(QFrame::StyledPanel);
+        frame_com->setFrameShadow(QFrame::Plain);
+        comboBox_com = new QComboBox(frame_com);
+        comboBox_com->setObjectName(QString::fromUtf8("comboBox_com"));
+        comboBox_com->setGeometry(QRect(10, 30, 131, 22));
+        pushButton_com = new QPushButton(frame_com);
+        pushButton_com->setObjectName(QString::fromUtf8("pushButton_com"));
+        pushButton_com->setGeometry(QRect(150, 30, 111, 23));
+        label_com = new QLabel(frame_com);
+        label_com->setObjectName(QString::fromUtf8("label_com"));
+        label_com->setGeometry(QRect(10, 10, 171, 16));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 666, 27));
+        menuBar->setGeometry(QRect(0, 0, 767, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -193,6 +236,14 @@ public:
         label_gearA->setText(QApplication::translate("MainWindow", "\320\232\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202 \320\220", nullptr));
         label_gearB->setText(QApplication::translate("MainWindow", "\320\232\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202 B", nullptr));
         checkBox_dir->setText(QApplication::translate("MainWindow", "\320\236\320\261\321\200\320\260\321\202\320\275\320\276\320\265 \320\275\320\260\320\277\321\200\320\260\320\262\320\273\320\265\320\275\320\270\320\265", nullptr));
+        pushButton_specChange->setText(QApplication::translate("MainWindow", "\320\230\320\267\320\274\320\265\320\275\320\270\321\202\321\214", nullptr));
+        pushButton_add->setText(QApplication::translate("MainWindow", "\320\222 \320\276\321\207\320\265\321\200\320\265\320\264\321\214", nullptr));
+        pushButton_singleStart->setText(QApplication::translate("MainWindow", "\320\237\321\203\321\201\320\272", nullptr));
+        pushButton_start->setText(QApplication::translate("MainWindow", "\320\237\321\203\321\201\320\272", nullptr));
+        pushButton_delete->setText(QApplication::translate("MainWindow", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
+        pushButton_reset->setText(QApplication::translate("MainWindow", "\320\241\320\261\321\200\320\276\321\201", nullptr));
+        pushButton_com->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\272\320\273\321\216\321\207\320\270\321\202\321\214", nullptr));
+        label_com->setText(QApplication::translate("MainWindow", "\320\222\321\213\320\261\320\265\321\200\320\270\321\202\320\265 COM-\320\277\320\276\321\200\321\202", nullptr));
     } // retranslateUi
 
 };

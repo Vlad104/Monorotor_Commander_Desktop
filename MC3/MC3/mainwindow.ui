@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>666</width>
-    <height>573</height>
+    <width>767</width>
+    <height>642</height>
    </rect>
   </property>
   <property name="font">
@@ -25,8 +25,8 @@
    <widget class="QFrame" name="frame_model">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>50</y>
+      <x>10</x>
+      <y>80</y>
       <width>291</width>
       <height>441</height>
      </rect>
@@ -359,6 +359,19 @@
        <string>Обратное направление</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_specChange">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>101</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Изменить</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QComboBox" name="comboBox_dozators">
      <property name="geometry">
@@ -370,13 +383,39 @@
       </rect>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButton_add">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>400</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>В очередь</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_singleStart">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>400</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Пуск</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame_order">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>50</y>
-      <width>311</width>
+      <x>320</x>
+      <y>80</y>
+      <width>421</width>
       <height>441</height>
      </rect>
     </property>
@@ -389,11 +428,102 @@
     <widget class="QListView" name="listView_order">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>256</width>
-       <height>192</height>
+       <x>10</x>
+       <y>11</y>
+       <width>401</width>
+       <height>211</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_start">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>230</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Пуск</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_delete">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Удалить</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_reset">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>230</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Сброс</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_com">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>291</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <widget class="QComboBox" name="comboBox_com">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>131</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_com">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>30</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Подключить</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_com">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>171</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Выберите COM-порт</string>
      </property>
     </widget>
    </widget>
@@ -403,8 +533,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>666</width>
-     <height>27</height>
+     <width>767</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ACTION_PROTOCOL_H
+#define ACTION_PROTOCOL_H
+
 #include "Protocol.h"
 
 
@@ -16,3 +18,6 @@ private:
 
 	std::string make_command();
 };
+
+
+#endif // ACTION_PROTOCOL_H

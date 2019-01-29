@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PROTOCOL_H
+#define PROTOCOL_H
+
 #include <string>
 
 class Protocol {
@@ -12,3 +14,4 @@ protected:
 	std::string convert_to_string(double value, int int_size, int frac_size);
 };
 
+#endif // PROTOCOL_H

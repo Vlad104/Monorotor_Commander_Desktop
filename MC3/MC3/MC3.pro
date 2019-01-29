@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,10 +27,23 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        ../../DataModel.cpp \
+        ../../TransmitController.cpp \
+        ../../Protocol.cpp \
+        ../../ActionProtocol.cpp \
+        ../../ParametersProtocol.cpp \
+        ../../Keeper.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+        ../../DataModel.h \
+        ../../OrderModel.h \
+        ../../TransmitController.h \
+        ../../Protocol.h \
+        ../../ActionProtocol.h \
+        ../../ParametersProtocol.h \
+        ../../Keeper.h
 
 FORMS += \
         mainwindow.ui

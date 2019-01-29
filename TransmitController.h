@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TRANSMIT_CONTROLLER_H
+#define TRANSMIT_CONTROLLER_H
 
 #include <queue>
 #include <string>
@@ -19,10 +20,11 @@ public:
 
 private:
 	std::queue<std::string> transmit_data_;
+	std::string prev_parameters_;
 	OrderModel order_;
-
-	std::string prev_parameters;
 
 	void make_transmit_data();
 	void prepare_model(DataModel& model);
 };
+
+#endif // TRANSMIT_CONTROLLER_H
