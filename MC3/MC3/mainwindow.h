@@ -10,6 +10,8 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 
+#include <QSettings>
+
 #include "../../DataModel.h"
 #include "../../OrderModel.h"
 #include "../../Protocol.h"
@@ -33,6 +35,12 @@ public:
 private slots:
     void on_pushButton_com_clicked();
 
+    void on_pushButton_reset_clicked();
+
+    void on_pushButton_delete_clicked();
+
+    void on_pushButton_add_clicked();
+
 private:
     Ui::MainWindow *ui;
     QStringListModel* model_;
@@ -48,6 +56,9 @@ private:
 
     void interface_init();
     void update_list();
+
+    void write_settings();
+    void read_settings();
 
 };
 
