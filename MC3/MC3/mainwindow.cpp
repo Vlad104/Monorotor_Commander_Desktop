@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    model_ = new QStringListModel(this);
+    //model_ = new QStringListModel(this);
+    spec_model_ = nullptr;
 
     interface_init();
 
@@ -17,7 +18,8 @@ MainWindow::~MainWindow()
 {
     write_settings();
     Keeper::save(order_model_);
-    delete model_;
+    //delete model_;
+    delete spec_model_;
     delete ui;
 }
 
@@ -48,6 +50,7 @@ void MainWindow::interface_init() {
 
 void MainWindow::serial_init() {
     serial_connected_ = false;
+    emit com_disconneted_signal(); // ?
     serial_.setParity(QSerialPort::NoParity);
     serial_.setBaudRate(QSerialPort::Baud19200);
     serial_.setDataBits(QSerialPort::Data8);
@@ -62,6 +65,7 @@ void MainWindow::serial_connect(const QSerialPortInfo &info) {
 
     serial_.setPort(info);
     if (serial_.open(QIODevice::ReadWrite)) {
+        qDebug() << "connected";
         //
         //serial.close();
     }
@@ -69,66 +73,34 @@ void MainWindow::serial_connect(const QSerialPortInfo &info) {
 
 void MainWindow::serial_disconnect() {
     serial_.close();
+    qDebug() << "disconnected";
 }
 
 void MainWindow::transmit(const OrderModel& order) {
     TransmitController ctrl(order);
     while (!ctrl.is_empty()) {
         std::string command = ctrl.get_command();
-        QString qcommand = QString::fromUtf8(command.data(), command.size());
-        //serial_.write(qcommand);
-        qDebug() << qcommand;
+        serial_.write(command.c_str());
+        qDebug() << QString::fromUtf8(command.data(), command.size());
     }
 }
 
 void MainWindow::update_list() {
 
+    /*
     QStringList list;
-
     for (auto& model : order_model_) {
         std::string str = model.to_print();
         list.append(QString::fromUtf8(str.data(), str.size()));
     }
-
     model_->setStringList(list);
     ui->listView_order->setModel(model_);
+    */
 
-    //////////////////
-    QStandardItemModel* model = new QStandardItemModel;
+    delete spec_model_;
+    spec_model_ = new SpecOrderModel(order_model_);
+    ui->tableView_order->setModel(spec_model_);
 
-    QStringList horizontalHeader;
-    horizontalHeader.append("Дозатор");
-    horizontalHeader.append("Объём");
-    horizontalHeader.append("Подача");
-    horizontalHeader.append("A:B");
-    horizontalHeader.append("Реверс");
-    model->setHorizontalHeaderLabels(horizontalHeader);
-
-    for (auto& data_model : order_model_) {
-        QStandardItem* item = new QStandardItem();
-        QList<QStandardItem*> row;
-        item = new QStandardItem();
-        item->setText(QString::number(data_model.get_dozators()));
-        row.append(item);
-        item = new QStandardItem();
-        item->setText(QString::number(data_model.get_volume()));
-        row.append(item);
-        item = new QStandardItem();
-        item->setText(QString::number(data_model.get_feedrate()));
-        row.append(item);
-        item = new QStandardItem();
-        item->setText(QString::number(data_model.get_ratio_A()));
-        row.append(item);
-        item = new QStandardItem();
-        item->setText(QString::number(data_model.get_reverse()));
-        row.append(item);
-        model->appendRow(row);
-    }
-
-    ui->tableView_order->setModel(model);
-
-    ui->tableView_order->resizeRowsToContents();
-    ui->tableView_order->resizeColumnsToContents();
 }
 
 void MainWindow::com_conneted() {
@@ -148,7 +120,7 @@ void MainWindow::on_pushButton_com_clicked()
     if (serial_connected_) {
         serial_disconnect();
         serial_connected_ = false;
-        emit com_conneted();
+        emit com_disconneted();
     }
     else {
         if (ui->comboBox_com->count() > 0) {
@@ -157,7 +129,7 @@ void MainWindow::on_pushButton_com_clicked()
                 if (info.portName() == port) {
                     serial_connect(info);
                     serial_connected_ = true;
-                    emit com_disconneted();
+                    emit com_conneted();
                     break;
                 }
             }
@@ -173,7 +145,7 @@ void MainWindow::on_pushButton_reset_clicked()
 
 void MainWindow::on_pushButton_delete_clicked()
 {
-    int index = ui->listView_order->currentIndex().row();
+    int index = ui->tableView_order->currentIndex().row();
     auto it = order_model_.begin();
     for (int i = 0; i < index; i++) {
         ++it;
@@ -253,7 +225,19 @@ void MainWindow::read_settings() {
     settings.endGroup();
 }
 
-void MainWindow::on_listView_order_doubleClicked(const QModelIndex &index)
+void MainWindow::on_pushButton_start_clicked()
+{
+    transmit(order_model_);
+}
+
+void MainWindow::on_pushButton_singleStart_clicked()
+{
+    OrderModel order;
+    order.emplace_back(make_data_model());
+    transmit(order);
+}
+
+void MainWindow::on_tableView_order_doubleClicked(const QModelIndex &index)
 {
     int int_index = index.row();
     auto it = order_model_.begin();
@@ -295,16 +279,4 @@ void MainWindow::on_listView_order_doubleClicked(const QModelIndex &index)
     ui->lineEdit_ratioA->setText(QString::number(Ra));
     ui->lineEdit_ratioB->setText(QString::number(Rb));
     ui->checkBox_dir->setChecked(dir);
-}
-
-void MainWindow::on_pushButton_start_clicked()
-{
-    transmit(order_model_);
-}
-
-void MainWindow::on_pushButton_singleStart_clicked()
-{
-    OrderModel order;
-    order.emplace_back(make_data_model());
-    transmit(order);
 }

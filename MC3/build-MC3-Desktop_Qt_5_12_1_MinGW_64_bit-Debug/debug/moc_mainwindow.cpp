@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[15];
-    char stringdata0[306];
+    char stringdata0[307];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,13 +39,13 @@ QT_MOC_LITERAL(4, 56, 25), // "on_pushButton_com_clicked"
 QT_MOC_LITERAL(5, 82, 27), // "on_pushButton_reset_clicked"
 QT_MOC_LITERAL(6, 110, 28), // "on_pushButton_delete_clicked"
 QT_MOC_LITERAL(7, 139, 25), // "on_pushButton_add_clicked"
-QT_MOC_LITERAL(8, 165, 31), // "on_listView_order_doubleClicked"
-QT_MOC_LITERAL(9, 197, 11), // "QModelIndex"
-QT_MOC_LITERAL(10, 209, 5), // "index"
-QT_MOC_LITERAL(11, 215, 27), // "on_pushButton_start_clicked"
-QT_MOC_LITERAL(12, 243, 33), // "on_pushButton_singleStart_cli..."
-QT_MOC_LITERAL(13, 277, 12), // "com_conneted"
-QT_MOC_LITERAL(14, 290, 15) // "com_disconneted"
+QT_MOC_LITERAL(8, 165, 27), // "on_pushButton_start_clicked"
+QT_MOC_LITERAL(9, 193, 33), // "on_pushButton_singleStart_cli..."
+QT_MOC_LITERAL(10, 227, 12), // "com_conneted"
+QT_MOC_LITERAL(11, 240, 15), // "com_disconneted"
+QT_MOC_LITERAL(12, 256, 32), // "on_tableView_order_doubleClicked"
+QT_MOC_LITERAL(13, 289, 11), // "QModelIndex"
+QT_MOC_LITERAL(14, 301, 5) // "index"
 
     },
     "MainWindow\0com_connected_signal\0\0"
@@ -53,10 +53,11 @@ QT_MOC_LITERAL(14, 290, 15) // "com_disconneted"
     "on_pushButton_reset_clicked\0"
     "on_pushButton_delete_clicked\0"
     "on_pushButton_add_clicked\0"
-    "on_listView_order_doubleClicked\0"
-    "QModelIndex\0index\0on_pushButton_start_clicked\0"
+    "on_pushButton_start_clicked\0"
     "on_pushButton_singleStart_clicked\0"
-    "com_conneted\0com_disconneted"
+    "com_conneted\0com_disconneted\0"
+    "on_tableView_order_doubleClicked\0"
+    "QModelIndex\0index"
 };
 #undef QT_MOC_LITERAL
 
@@ -82,11 +83,11 @@ static const uint qt_meta_data_MainWindow[] = {
        5,    0,   72,    2, 0x08 /* Private */,
        6,    0,   73,    2, 0x08 /* Private */,
        7,    0,   74,    2, 0x08 /* Private */,
-       8,    1,   75,    2, 0x08 /* Private */,
+       8,    0,   75,    2, 0x08 /* Private */,
+       9,    0,   76,    2, 0x08 /* Private */,
+      10,    0,   77,    2, 0x08 /* Private */,
       11,    0,   78,    2, 0x08 /* Private */,
-      12,    0,   79,    2, 0x08 /* Private */,
-      13,    0,   80,    2, 0x08 /* Private */,
-      14,    0,   81,    2, 0x08 /* Private */,
+      12,    1,   79,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -97,11 +98,11 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 9,   10,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 13,   14,
 
        0        // eod
 };
@@ -118,11 +119,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->on_pushButton_reset_clicked(); break;
         case 4: _t->on_pushButton_delete_clicked(); break;
         case 5: _t->on_pushButton_add_clicked(); break;
-        case 6: _t->on_listView_order_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
-        case 7: _t->on_pushButton_start_clicked(); break;
-        case 8: _t->on_pushButton_singleStart_clicked(); break;
-        case 9: _t->com_conneted(); break;
-        case 10: _t->com_disconneted(); break;
+        case 6: _t->on_pushButton_start_clicked(); break;
+        case 7: _t->on_pushButton_singleStart_clicked(); break;
+        case 8: _t->com_conneted(); break;
+        case 9: _t->com_disconneted(); break;
+        case 10: _t->on_tableView_order_doubleClicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

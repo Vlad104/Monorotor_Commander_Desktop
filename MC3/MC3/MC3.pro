@@ -33,7 +33,8 @@ SOURCES += \
         ../../Protocol.cpp \
         ../../ActionProtocol.cpp \
         ../../ParametersProtocol.cpp \
-        ../../Keeper.cpp
+        ../../Keeper.cpp \
+    specordermodel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
         ../../Protocol.h \
         ../../ActionProtocol.h \
         ../../ParametersProtocol.h \
-        ../../Keeper.h
+        ../../Keeper.h \
+    specordermodel.h
 
 FORMS += \
         mainwindow.ui

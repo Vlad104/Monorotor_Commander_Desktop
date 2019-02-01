@@ -22,6 +22,8 @@
 #include "../../TransmitController.h"
 #include "../../Keeper.h"
 
+#include "specordermodel.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -47,8 +49,6 @@ private slots:
 
     void on_pushButton_add_clicked();
 
-    void on_listView_order_doubleClicked(const QModelIndex &index);
-
     void on_pushButton_start_clicked();
 
     void on_pushButton_singleStart_clicked();
@@ -57,9 +57,12 @@ private slots:
 
     void com_disconneted();
 
+    void on_tableView_order_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
-    QStringListModel* model_;
+    //QStringListModel* model_;
+    QStandardItemModel* spec_model_;
     QSerialPort serial_;
     OrderModel order_model_;
 
