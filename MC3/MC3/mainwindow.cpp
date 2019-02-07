@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     //model_ = new QStringListModel(this);
     spec_model_ = nullptr;
+    serial_receive_data_ = "";
 
     interface_init();
 
@@ -46,6 +47,7 @@ void MainWindow::interface_init() {
 
     QObject::connect(this, SIGNAL(com_conneted_signal()), this, SLOT(com_conneted()));
     QObject::connect(this, SIGNAL(com_disconneted_signal()), this, SLOT(com_disconneted()));
+    QObject::connect(&serial_, &QSerialPort::readyRead, this, &MainWindow::receive);
 }
 
 void MainWindow::serial_init() {
@@ -82,7 +84,25 @@ void MainWindow::transmit(const OrderModel& order) {
         std::string command = ctrl.get_command();
         serial_.write(command.c_str());
         qDebug() << QString::fromUtf8(command.data(), command.size());
+
+
+        QThread::sleep(10);
+        const QByteArray data = serial_.readAll();
+        serial_receive_data_ = data;
+        qDebug() << serial_receive_data_;
+        if (serial_receive_data_ == "!") {
+            qDebug() << "OK";
+        } else {
+            qDebug() << "NOT OK";
+            return;
+        }
     }
+}
+
+void MainWindow::receive() {
+    const QByteArray data = serial_.readAll();
+    serial_receive_data_ = data;
+    qDebug() << serial_receive_data_;
 }
 
 void MainWindow::update_list() {

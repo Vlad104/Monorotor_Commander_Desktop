@@ -11,6 +11,7 @@
 
 #include <QSerialPort>
 #include <QSerialPortInfo>
+#include <QThread>
 
 #include <QSettings>
 
@@ -67,11 +68,13 @@ private:
     OrderModel order_model_;
 
     bool serial_connected_;
+    QString serial_receive_data_;
 
     void serial_init();
     void serial_connect(const QSerialPortInfo &info);
     void serial_disconnect();
     void transmit(const OrderModel& order);
+    void receive();
 
     void interface_init();
     void update_list();
