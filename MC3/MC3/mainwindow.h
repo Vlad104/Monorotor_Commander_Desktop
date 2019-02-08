@@ -6,22 +6,20 @@
 #include <QIntValidator>
 #include <QDoubleValidator>
 #include <QStringListModel>
-#include <QStandardItemModel>
-#include <QStandardItem>
 
 #include <QSerialPort>
 #include <QSerialPortInfo>
-#include <QThread>
-
+#include <QTimer>
+#include <QEventLoop>
 #include <QSettings>
 
-#include "../../DataModel.h"
-#include "../../OrderModel.h"
-#include "../../Protocol.h"
-#include "../../ActionProtocol.h"
-#include "../../ParametersProtocol.h"
-#include "../../TransmitController.h"
-#include "../../Keeper.h"
+#include "../../src/DataModel.h"
+#include "../../src/OrderModel.h"
+#include "../../src/Protocol.h"
+#include "../../src/ActionProtocol.h"
+#include "../../src/ParametersProtocol.h"
+#include "../../src/TransmitController.h"
+#include "../../src/Keeper.h"
 
 #include "specordermodel.h"
 
@@ -56,13 +54,16 @@ private slots:
 
     void com_conneted();
 
-    void com_disconneted();
+    void com_disconneted();    
+
+    void receive();
+
+    void transmit_timeout();
 
     void on_tableView_order_doubleClicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
-    //QStringListModel* model_;
     QStandardItemModel* spec_model_;
     QSerialPort serial_;
     OrderModel order_model_;
@@ -70,12 +71,13 @@ private:
     bool serial_connected_;
     QString serial_receive_data_;
 
+    QTimer* timer_;
+    bool timeout_;
+
     void serial_init();
     void serial_connect(const QSerialPortInfo &info);
     void serial_disconnect();
     void transmit(const OrderModel& order);
-    void receive();
-
     void interface_init();
     void update_list();
 

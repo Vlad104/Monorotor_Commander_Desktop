@@ -28,24 +28,24 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        ../../DataModel.cpp \
-        ../../TransmitController.cpp \
-        ../../Protocol.cpp \
-        ../../ActionProtocol.cpp \
-        ../../ParametersProtocol.cpp \
-        ../../Keeper.cpp \
-    specordermodel.cpp
+        ../../src/DataModel.cpp \
+        ../../src/TransmitController.cpp \
+        ../../src/Protocol.cpp \
+        ../../src/ActionProtocol.cpp \
+        ../../src/ParametersProtocol.cpp \
+        ../../src/Keeper.cpp \
+        specordermodel.cpp
 
 HEADERS += \
         mainwindow.h \
-        ../../DataModel.h \
-        ../../OrderModel.h \
-        ../../TransmitController.h \
-        ../../Protocol.h \
-        ../../ActionProtocol.h \
-        ../../ParametersProtocol.h \
-        ../../Keeper.h \
-    specordermodel.h
+        ../../src/DataModel.h \
+        ../../src/OrderModel.h \
+        ../../src/TransmitController.h \
+        ../../src/Protocol.h \
+        ../../src/ActionProtocol.h \
+        ../../src/ParametersProtocol.h \
+        ../../src/Keeper.h \
+        specordermodel.h
 
 FORMS += \
         mainwindow.ui

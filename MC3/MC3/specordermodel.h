@@ -4,8 +4,8 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 
-#include "../../DataModel.h"
-#include "../../OrderModel.h"
+#include "../../src/DataModel.h"
+#include "../../src/OrderModel.h"
 
 class SpecOrderModel : public QStandardItemModel
 {

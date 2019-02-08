@@ -7,10 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //model_ = new QStringListModel(this);
     spec_model_ = nullptr;
-    serial_receive_data_ = "";
-
+    timer_ = new QTimer();
+    timeout_ = false;
     interface_init();
 
 }
@@ -19,7 +18,7 @@ MainWindow::~MainWindow()
 {
     write_settings();
     Keeper::save(order_model_);
-    //delete model_;
+    delete timer_;
     delete spec_model_;
     delete ui;
 }
@@ -47,11 +46,13 @@ void MainWindow::interface_init() {
 
     QObject::connect(this, SIGNAL(com_conneted_signal()), this, SLOT(com_conneted()));
     QObject::connect(this, SIGNAL(com_disconneted_signal()), this, SLOT(com_disconneted()));
-    QObject::connect(&serial_, &QSerialPort::readyRead, this, &MainWindow::receive);
+    QObject::connect(&serial_, &QSerialPort::readyRead, this, &MainWindow::receive);    
+    QObject::connect(timer_, SIGNAL(timeout()), this, SLOT(transmit_timeout()));
 }
 
 void MainWindow::serial_init() {
     serial_connected_ = false;
+    serial_receive_data_ = "";
     emit com_disconneted_signal(); // ?
     serial_.setParity(QSerialPort::NoParity);
     serial_.setBaudRate(QSerialPort::Baud19200);
@@ -68,14 +69,18 @@ void MainWindow::serial_connect(const QSerialPortInfo &info) {
     serial_.setPort(info);
     if (serial_.open(QIODevice::ReadWrite)) {
         qDebug() << "connected";
-        //
-        //serial.close();
+
     }
 }
 
 void MainWindow::serial_disconnect() {
     serial_.close();
     qDebug() << "disconnected";
+}
+
+void MainWindow::transmit_timeout() {
+    qDebug() << "Таймер вышел";
+    timeout_ = true;
 }
 
 void MainWindow::transmit(const OrderModel& order) {
@@ -85,16 +90,22 @@ void MainWindow::transmit(const OrderModel& order) {
         serial_.write(command.c_str());
         qDebug() << QString::fromUtf8(command.data(), command.size());
 
-
-        QThread::sleep(10);
-        const QByteArray data = serial_.readAll();
-        serial_receive_data_ = data;
+        timer_->start(5000);
+        QEventLoop evloop;
+        while(serial_receive_data_ == "" && !timeout_) {
+            evloop.processEvents();
+        }
+        timer_->stop();
+        timeout_ = false;
         qDebug() << serial_receive_data_;
         if (serial_receive_data_ == "!") {
-            qDebug() << "OK";
+            qDebug() << "Very good";
+            serial_receive_data_ = "";
+            continue;
         } else {
-            qDebug() << "NOT OK";
-            return;
+            qDebug() << "Not good";
+            serial_receive_data_ = "";
+            continue;
         }
     }
 }
@@ -102,25 +113,12 @@ void MainWindow::transmit(const OrderModel& order) {
 void MainWindow::receive() {
     const QByteArray data = serial_.readAll();
     serial_receive_data_ = data;
-    qDebug() << serial_receive_data_;
 }
 
 void MainWindow::update_list() {
-
-    /*
-    QStringList list;
-    for (auto& model : order_model_) {
-        std::string str = model.to_print();
-        list.append(QString::fromUtf8(str.data(), str.size()));
-    }
-    model_->setStringList(list);
-    ui->listView_order->setModel(model_);
-    */
-
     delete spec_model_;
     spec_model_ = new SpecOrderModel(order_model_);
     ui->tableView_order->setModel(spec_model_);
-
 }
 
 void MainWindow::com_conneted() {
@@ -141,8 +139,7 @@ void MainWindow::on_pushButton_com_clicked()
         serial_disconnect();
         serial_connected_ = false;
         emit com_disconneted();
-    }
-    else {
+    } else {
         if (ui->comboBox_com->count() > 0) {
             QString port = ui->comboBox_com->currentText();
             foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
@@ -186,21 +183,8 @@ DataModel MainWindow::make_data_model() {
     double Rb = ui->lineEdit_ratioB->text().toDouble();
     bool dir = ui->checkBox_dir->isChecked();
 
-    char D;
-    switch (iD) {
-    case 0:
-        D = '2';
-        break;
-    case 1:
-        D = '1';
-        break;
-    case 2:
-        D = '0';
-        break;
-    default:
-        D = '2';
-        break;
-    }
+    char temp[3] = {'2', '1', '0'};
+    char D = temp[iD];
 
     return DataModel(D, V, F, A, R, Wa, Wb, Ra, Rb, dir);
 }
@@ -264,7 +248,7 @@ void MainWindow::on_tableView_order_doubleClicked(const QModelIndex &index)
     for (int i = 0; i < int_index; i++) {
         ++it;
     }
-    char iD = it->get_dozators();
+    char cD = it->get_dozators();
     uint32_t V = it->get_volume();
     uint32_t F = it->get_feedrate();
     uint32_t A = it->get_accel();
@@ -275,7 +259,7 @@ void MainWindow::on_tableView_order_doubleClicked(const QModelIndex &index)
     double Rb = it->get_ratio_B();
     bool dir = it->get_direction();
 
-    switch (iD) {
+    switch (cD) {
     case '2':
         ui->comboBox_dozators->setCurrentIndex(0);
         break;
