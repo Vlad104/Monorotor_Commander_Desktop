@@ -47,7 +47,7 @@ void MainWindow::interface_init() {
     QObject::connect(this, SIGNAL(com_conneted_signal()), this, SLOT(com_conneted()));
     QObject::connect(this, SIGNAL(com_disconneted_signal()), this, SLOT(com_disconneted()));
     QObject::connect(&serial_, &QSerialPort::readyRead, this, &MainWindow::receive);    
-    QObject::connect(timer_, SIGNAL(timeout()), this, SLOT(transmit_timeout()));
+    //QObject::connect(timer_, SIGNAL(timeout()), this, SLOT(transmit_timeout()));
 }
 
 void MainWindow::serial_init() {
@@ -90,22 +90,22 @@ void MainWindow::transmit(const OrderModel& order) {
         serial_.write(command.c_str());
         qDebug() << QString::fromUtf8(command.data(), command.size());
 
-        timer_->start(5000);
+        //timer_->start(5000);
         QEventLoop evloop;
         while(serial_receive_data_ == "" && !timeout_) {
             evloop.processEvents();
         }
-        timer_->stop();
+        //timer_->stop();
         timeout_ = false;
         qDebug() << serial_receive_data_;
         if (serial_receive_data_ == "!") {
             qDebug() << "Very good";
             serial_receive_data_ = "";
-            continue;
+            //continue;
         } else {
             qDebug() << "Not good";
             serial_receive_data_ = "";
-            continue;
+            //continue;
         }
     }
 }
