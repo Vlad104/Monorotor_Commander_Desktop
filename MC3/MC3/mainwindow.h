@@ -62,6 +62,8 @@ private slots:
 
     void on_tableView_order_doubleClicked(const QModelIndex &index);
 
+    void on_pushButton_stop_clicked();
+
 private:
     Ui::MainWindow *ui;
     QStandardItemModel* spec_model_;

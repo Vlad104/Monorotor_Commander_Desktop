@@ -37,6 +37,8 @@ void MainWindow::interface_init() {
     ui->comboBox_dozators->addItem("Дозатор А");
     ui->comboBox_dozators->addItem("Дозатор B");
 
+    //ui->pushButton_stop->setStyleSheet("background-color: red");
+
     read_settings();
 
     Keeper::load(order_model_);
@@ -283,4 +285,11 @@ void MainWindow::on_tableView_order_doubleClicked(const QModelIndex &index)
     ui->lineEdit_ratioA->setText(QString::number(Ra));
     ui->lineEdit_ratioB->setText(QString::number(Rb));
     ui->checkBox_dir->setChecked(dir);
+}
+
+void MainWindow::on_pushButton_stop_clicked()
+{
+    //OrderModel order;
+    //order.emplace_back(make_data_model());
+    //transmit(order);
 }

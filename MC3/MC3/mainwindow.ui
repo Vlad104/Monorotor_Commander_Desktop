@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>690</width>
-    <height>442</height>
+    <height>540</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,13 +19,13 @@
   <property name="minimumSize">
    <size>
     <width>690</width>
-    <height>442</height>
+    <height>540</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>690</width>
-    <height>442</height>
+    <height>540</height>
    </size>
   </property>
   <property name="font">
@@ -658,6 +658,26 @@
       <string>Выберите COM-порт</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_stop">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>420</y>
+      <width>671</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>СТОП</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
