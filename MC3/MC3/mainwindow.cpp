@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     timer_ = new QTimer();
     timeout_ = false;
     interface_init();
-
 }
 
 MainWindow::~MainWindow()
@@ -25,17 +24,23 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::interface_init() {
-    ui->lineEdit_volume->setValidator(new QIntValidator);
-    ui->lineEdit_feedrate->setValidator(new QIntValidator);
-    ui->lineEdit_reverse->setValidator(new QIntValidator);
+    ui->lineEdit_volume->setValidator(new QDoubleValidator);
+    ui->lineEdit_feedrate->setValidator(new QDoubleValidator);
+    ui->lineEdit_reverse->setValidator(new QDoubleValidator);
     ui->lineEdit_ratioA->setValidator(new QDoubleValidator);
     ui->lineEdit_ratioA->setValidator(new QDoubleValidator);
-    ui->lineEdit_accel->setValidator(new QIntValidator);
+    ui->lineEdit_accel->setValidator(new QDoubleValidator);
     ui->lineEdit_gearA->setValidator(new QDoubleValidator);
     ui->lineEdit_gearB->setValidator(new QDoubleValidator);
     ui->comboBox_dozators->addItem("Два дозатора");
     ui->comboBox_dozators->addItem("Дозатор А");
     ui->comboBox_dozators->addItem("Дозатор B");
+
+    ui->pushButton_singleStart->setEnabled(true);
+    ui->pushButton_start->setEnabled(true);
+    ui->pushButton_start->setEnabled(true);
+    ui->pushButton_continues->setEnabled(true);
+    ui->pushButton_continues_pressed->setEnabled(true);
 
     //ui->pushButton_stop->setStyleSheet("background-color: red");
 
@@ -85,10 +90,9 @@ void MainWindow::transmit_timeout() {
     timeout_ = true;
 }
 
-void MainWindow::transmit(const OrderModel& order) {
-    TransmitController ctrl(order);
-    while (!ctrl.is_empty()) {
-        std::string command = ctrl.get_command();
+void MainWindow::transmit() {
+    while (!transmit_order_.is_empty()) {
+        std::string command = transmit_order_.get_command();
         serial_.write(command.c_str());
         qDebug() << QString::fromUtf8(command.data(), command.size());
 
@@ -125,14 +129,12 @@ void MainWindow::update_list() {
 
 void MainWindow::com_conneted() {
     ui->pushButton_com->setText("Отключить");
-    ui->pushButton_start->setEnabled(true);
-    ui->pushButton_singleStart->setEnabled(true);
+    ui->frame_transmit->setEnabled(true);
 }
 
 void MainWindow::com_disconneted() {
     ui->pushButton_com->setText("Подключить");
-    ui->pushButton_start->setEnabled(false);
-    ui->pushButton_singleStart->setEnabled(false);
+    ui->frame_transmit->setEnabled(false);
 }
 
 void MainWindow::on_pushButton_com_clicked()
@@ -175,20 +177,20 @@ void MainWindow::on_pushButton_delete_clicked()
 
 DataModel MainWindow::make_data_model() {
     int iD = ui->comboBox_dozators->currentIndex();
-    uint32_t V = ui->lineEdit_volume->text().toUInt();
-    uint32_t F = ui->lineEdit_feedrate->text().toUInt();
-    uint32_t A = ui->lineEdit_accel->text().toUInt();
-    uint32_t R = ui->lineEdit_reverse->text().toUInt();
+    double V = ui->lineEdit_volume->text().toDouble();
+    double F = ui->lineEdit_feedrate->text().toDouble();
+    double A = ui->lineEdit_accel->text().toDouble();
+    //uint32_t R = ui->lineEdit_reverse->text().toUInt();
     double Wa = ui->lineEdit_gearA->text().toDouble();
     double Wb = ui->lineEdit_gearB->text().toDouble();
     double Ra = ui->lineEdit_ratioA->text().toDouble();
     double Rb = ui->lineEdit_ratioB->text().toDouble();
-    bool dir = ui->checkBox_dir->isChecked();
+    //bool dir = ui->checkBox_dir->isChecked();
 
-    char temp[3] = {'2', '1', '0'};
+    char temp[3] = {'2', '0', '1'};
     char D = temp[iD];
 
-    return DataModel(D, V, F, A, R, Wa, Wb, Ra, Rb, dir);
+    return DataModel(D, V, F, A, Wa, Wb, Ra, Rb);
 }
 
 void MainWindow::on_pushButton_add_clicked()
@@ -233,14 +235,16 @@ void MainWindow::read_settings() {
 
 void MainWindow::on_pushButton_start_clicked()
 {
-    transmit(order_model_);
+    transmit_order_.get_start(order_model_);
+    transmit();
 }
 
 void MainWindow::on_pushButton_singleStart_clicked()
 {
     OrderModel order;
     order.emplace_back(make_data_model());
-    transmit(order);
+    transmit_order_.get_start(order);
+    transmit();
 }
 
 void MainWindow::on_tableView_order_doubleClicked(const QModelIndex &index)
@@ -251,25 +255,25 @@ void MainWindow::on_tableView_order_doubleClicked(const QModelIndex &index)
         ++it;
     }
     char cD = it->get_dozators();
-    uint32_t V = it->get_volume();
-    uint32_t F = it->get_feedrate();
-    uint32_t A = it->get_accel();
-    uint32_t R = it->get_reverse();
+    double V = it->get_volume();
+    double F = it->get_feedrate();
+    double A = it->get_accel();
+    //double R = it->get_reverse();
     double Wa = it->get_gear_A();
     double Wb = it->get_gear_B();
     double Ra = it->get_ratio_A();
     double Rb = it->get_ratio_B();
-    bool dir = it->get_direction();
+    //bool dir = it->get_direction();
 
     switch (cD) {
     case '2':
         ui->comboBox_dozators->setCurrentIndex(0);
         break;
     case '1':
-        ui->comboBox_dozators->setCurrentIndex(1);
+        ui->comboBox_dozators->setCurrentIndex(2);
         break;
     case '0':
-        ui->comboBox_dozators->setCurrentIndex(2);
+        ui->comboBox_dozators->setCurrentIndex(1);
         break;
     default:
         ui->comboBox_dozators->setCurrentIndex(0);
@@ -279,17 +283,42 @@ void MainWindow::on_tableView_order_doubleClicked(const QModelIndex &index)
     ui->lineEdit_volume->setText(QString::number(V));
     ui->lineEdit_feedrate->setText(QString::number(F));
     ui->lineEdit_accel->setText(QString::number(A));
-    ui->lineEdit_reverse->setText(QString::number(R));
+    //ui->lineEdit_reverse->setText(QString::number(R));
     ui->lineEdit_gearA->setText(QString::number(Wa));
     ui->lineEdit_gearB->setText(QString::number(Wb));
     ui->lineEdit_ratioA->setText(QString::number(Ra));
     ui->lineEdit_ratioB->setText(QString::number(Rb));
-    ui->checkBox_dir->setChecked(dir);
+    //ui->checkBox_dir->setChecked(dir);
 }
 
 void MainWindow::on_pushButton_stop_clicked()
 {
-    //OrderModel order;
-    //order.emplace_back(make_data_model());
-    //transmit(order);
+    transmit_order_.get_stop();
+    transmit();
+}
+
+void MainWindow::on_pushButton_continues_clicked()
+{
+    OrderModel order;
+    order.emplace_back(make_data_model());
+    transmit_order_.get_continues(order);
+    transmit();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+     qDebug() << "pressed";
+}
+
+void MainWindow::on_pushButton_continues_pressed_pressed()
+{
+    OrderModel order;
+    order.emplace_back(make_data_model());
+    transmit_order_.get_continues(order);
+    transmit();
+}
+
+void MainWindow::on_pushButton_continues_pressed_released()
+{
+    transmit_order_.get_stop();
+    transmit();
 }

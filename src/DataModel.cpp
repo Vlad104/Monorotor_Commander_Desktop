@@ -5,123 +5,76 @@ DataModel::DataModel() :
 	volume_(0.0), 
 	feedrate_(0.0),
 	accel_(20),
-	reverse_(0.0),
 	gear_A_(1.0),
 	gear_B_(1.0),
 	ratio_A_(1.0),
-	ratio_B_(1.0),
-	direction_(true)
+	ratio_B_(1.0)
 {}
 
-DataModel::DataModel(char dozators, uint32_t volume, uint32_t feedrate, uint32_t accel, 
-					uint32_t reverse, double gear_A, double gear_B, double ratio_A,
-					double ratio_B, bool direction) :
+DataModel::DataModel(char dozators, double volume, double feedrate, double accel, 
+					double gear_A, double gear_B, double ratio_A, double ratio_B) :
 	dozators_(dozators),
 	volume_(volume), 
 	feedrate_(feedrate),
 	accel_(accel),
-	reverse_(reverse),
 	gear_A_(gear_A),
 	gear_B_(gear_B),
 	ratio_A_(ratio_A),
-	ratio_B_(ratio_B),
-	direction_(direction)
+	ratio_B_(ratio_B)
 {}
-
-/*
-DataModel::DataModel(const DataModel& other) :
-	dozators_(other.dozators_),
-	volume_(other.volume_), 
-	feedrate_(other.feedrate_),
-	accel_(other.accel_),
-	reverse_(other.reverse_),
-	gear_A_(other.gear_A_),
-	gear_B_(other.gear_B_),
-	ratio_A_(other.ratio_A_),
-	ratio_B_(other.ratio_B_),
-	direction_(other.direction_)
-{}
-*/
-/*
-DataModel::DataModell(DataModel&& other) :
-	dozators_(other.dozators),
-	volume_(other.volume), 
-	feedrate_(other.feedrate),
-	accel_(other.accel),
-	reverse_(other.reverse),
-	gear_A_(other.gear_A),
-	gear_B_(other.gear_B),
-	ratio_A_(other.ratio_A),
-	ratio_B_(other.ratio_B),
-	direction_(other.direction)
-{}
-*/
 
 DataModel::~DataModel() {}
 
-char DataModel::get_dozators() {
+char DataModel::get_dozators() const {
 	return dozators_;
 }
 
-uint32_t DataModel::get_volume() {
+double DataModel::get_volume() const {
 	return volume_;
 }
 
-uint32_t DataModel::get_feedrate() {
+double DataModel::get_feedrate() const {
 	return feedrate_;
 }
 
-uint32_t DataModel::get_accel() {
+double DataModel::get_accel() const {
 	return accel_;
 }
 
-uint32_t DataModel::get_reverse() {
-	return reverse_;
-}
-
-double DataModel::get_gear_A() {
+double DataModel::get_gear_A() const {
 	return gear_A_;
 }
 
-double DataModel::get_gear_B() {
+double DataModel::get_gear_B() const {
 	return gear_B_;
 }
 
-double DataModel::get_ratio_A() {
+double DataModel::get_ratio_A() const {
 	return ratio_A_;
 }
 
-double DataModel::get_ratio_B() {
+double DataModel::get_ratio_B() const {
 	return ratio_B_;
 }
 
-double DataModel::get_ratio() {
+double DataModel::get_ratio() const {
 	return ratio_A_ / (ratio_A_ + ratio_B_);
 }
 
-bool DataModel::get_direction() {
-	return direction_;
-}
-
-
 void DataModel::set_dozators(char dozators) {
-	dozators_ =dozators;
+	dozators_ = dozators;
 }
 
-void DataModel::set_volume(uint32_t volume) {
+void DataModel::set_volume(double volume) {
 	volume_ = volume;
 }
 
-void DataModel::set_feedrate(uint32_t feedrate) {
+void DataModel::set_feedrate(double feedrate) {
 	feedrate_ = feedrate;
 }
 
-void DataModel::set_accel(uint32_t accel) {
+void DataModel::set_accel(double accel) {
 	accel_ = accel;
-}
-
-void DataModel::set_reverse(uint32_t reverse) {
-	reverse_ = reverse;
 }
 
 void DataModel::set_gear_A(double gear_A) {
@@ -138,32 +91,4 @@ void DataModel::set_ratio_A(double ratio_A) {
 
 void DataModel::set_ratio_B(double ratio_B) {
 	ratio_B_ = ratio_B;
-}
-
-void DataModel::set_direction(bool direction) {
-	direction_ = direction;
-}
-
-bool DataModel::change_direction() {
-	direction_ = !direction_;
-	return direction_;
-}
-
-std::string DataModel::to_print() {
-	std::string result;
-	std::stringstream buffer;
-
-	buffer << "D: " << dozators_ << " ";
-	buffer << "V: " << volume_ << " ";
-	buffer << "F: " << feedrate_ << " ";
-	buffer << "R: " << reverse_  << " ";
-	buffer << "A:B = " << ratio_A_ << "/" << ratio_B_ << " ";
-	//buffer << "Wa: " << gear_A_ << " ";
-	//buffer << "Wb: " << gear_B_ << " ";
-	//buffer << "A: " << accel_ << " ";
-	//buffer << "d: " << direction_ << " ";
-
-	result = buffer.str();
-
-	return result;
 }

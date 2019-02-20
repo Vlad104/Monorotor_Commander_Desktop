@@ -2,16 +2,27 @@
 #define PROTOCOL_H
 
 #include <string>
+#include <sstream>
 
 class Protocol {
 public:
 	Protocol() = default;
-	virtual ~Protocol() = default;
-	virtual std::string get_command() = 0;
+	~Protocol() = default;
 
-protected:
-	std::string convert_to_string(uint32_t value, int size);
-	std::string convert_to_string(double value, int int_size, int frac_size);
+	static std::string make_dozators(char dozators);
+	static std::string make_volume(double volume);
+	static std::string make_feedrate(double volume);
+	static std::string make_accel(double volume);
+	static std::string make_gear_A(double volume);
+	static std::string make_gear_B(double volume);
+	static std::string make_ratio(double volume);
+
+	static std::string make_start();
+	static std::string make_stop();
+	static std::string make_continues();
+
+private:
+	static std::string convert_to_string(double value);
 };
 
 #endif // PROTOCOL_H

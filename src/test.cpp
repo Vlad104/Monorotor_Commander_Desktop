@@ -9,18 +9,19 @@ int main() {
 	std::cout << "START" << std::endl;
 
 	OrderModel order;
-	/*
-	order.emplace_back(DataModel('0', 111000, 222000, 33000, 99, 4444, 5555, 1, 1, false));
-	order.emplace_back(DataModel('1', 123456, 999999, 1000, 50, 4444, 5555, 1, 2, true));
-	order.emplace_back(DataModel('2', 999999, 1000, 123456, 1, 4444, 5555, 2, 1, false));
-	order.emplace_back(DataModel('2', 2000, 22000, 2010, 75, 4444, 5555, 100, 1, true));
-	order.emplace_back(DataModel('2', 2000, 22000, 2010, 75, 4444, 5555, 100, 1, true));
-	order.emplace_back(DataModel('2', 2000, 22000, 2010, 75, 4444, 5555, 100, 1, false));
-	*/
 
+/*
+	order.emplace_back(DataModel('0', 111000, 221000, 33000, 4444, 5555, 1, 1));
+	order.emplace_back(DataModel('0', 112000, 223000, 33000, 4444, 5555, 1, 2));
+	order.emplace_back(DataModel('0', 113000, 224000, 33000, 4444, 5555, 1, 1));
+	order.emplace_back(DataModel('0', 114000, 226000, 33000, 4444, 5555, 1, 1));
+	order.emplace_back(DataModel('0', 115000, 222000, 33000, 4444, 5555, 1, 1));
+	order.emplace_back(DataModel('0', 116000, 222000, 33000, 4444, 5555, 1, 1));
+*/
 	Keeper::load(order);
 
-	TransmitController ctrl(order);
+	TransmitController ctrl;
+	ctrl.get_start(order);
 	while (!ctrl.is_empty()) {
 		std::cout << ctrl.get_command() << std::endl;
 	}

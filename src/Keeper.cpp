@@ -11,12 +11,10 @@ void Keeper::save(OrderModel& order) {
 		file << model.get_volume() << std::endl;
 		file << model.get_feedrate() << std::endl;
 		file << model.get_accel() << std::endl;
-		file << model.get_reverse() << std::endl;
 		file << model.get_gear_A() << std::endl;
 		file << model.get_gear_B() << std::endl;
 		file << model.get_ratio_A() << std::endl;
 		file << model.get_ratio_B() << std::endl;
-		file << model.get_direction() << std::endl;
 	}
 
 	file.close();
@@ -30,12 +28,10 @@ void Keeper::load(OrderModel& order) {
 	uint32_t volume;	// ul
 	uint32_t feedrate;	// ul/min
 	uint32_t accel;		// ul/(min*sec)
-	uint32_t reverse;	// procents (previously - ul)
 	double gear_A;		// pulses count / ml
 	double gear_B;		// pulses count / ml
 	double ratio_A;		// volume_A / (volume)
 	double ratio_B;		// volume_B / (volume)
-	bool direction;		// 
 
 	order.clear();
 
@@ -44,14 +40,12 @@ void Keeper::load(OrderModel& order) {
 		file >> dozators;
 		file >> volume;	
 		file >> feedrate;	
-		file >> accel;		
-		file >> reverse;
+		file >> accel;
 		file >> gear_A;
 		file >> gear_B;
 		file >> ratio_A;
 		file >> ratio_B;
-		file >> direction;
-		order.emplace_back(DataModel(dozators, volume, feedrate, accel, reverse, gear_A, gear_B, ratio_A, ratio_B, direction));
+		order.emplace_back(DataModel(dozators, volume, feedrate, accel, gear_A, gear_B, ratio_A, ratio_B));
 	}
 
 	file.close();

@@ -1,2 +1,2 @@
 all:
-	g++ test.cpp DataModel.cpp Protocol.cpp ParametersProtocol.cpp ActionProtocol.cpp TransmitController.cpp Keeper.cpp -o test
+	g++ test.cpp DataModel.cpp Protocol.cpp TransmitController.cpp Keeper.cpp -o test

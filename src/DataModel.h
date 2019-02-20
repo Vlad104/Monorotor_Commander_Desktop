@@ -7,52 +7,42 @@
 class DataModel {
 public:
 	DataModel();
-	DataModel(char dozators, uint32_t volume, uint32_t feedrate, uint32_t accel, 
-			uint32_t reverse, double gear_A, double gear_B, double ratio_A,
-			double ratio_B, bool direction);
+	DataModel(char dozators, double volume, double feedrate, double accel, 
+			double gear_A, double gear_B, double ratio_A, double ratio_B);
 	//DataModel(const DataModel& other);
 	//DataModel& operator=(const DataModel&);
 	//DataModel(DataModel&& other);
 	//DataModel& operator=(DataModel&&);
 	~DataModel();
 
-	char get_dozators();
-	uint32_t get_volume();
-	uint32_t get_feedrate();
-	uint32_t get_accel();
-	uint32_t get_reverse();
-	double get_gear_A();
-	double get_gear_B();
-	double get_ratio_A();
-	double get_ratio_B();
-	double get_ratio();
-	bool get_direction();
+	char get_dozators() const;
+	double get_volume() const;
+	double get_feedrate() const;
+	double get_accel() const;
+	double get_gear_A() const;
+	double get_gear_B() const;
+	double get_ratio_A() const;
+	double get_ratio_B() const;
+	double get_ratio() const;
 
 	void set_dozators(char dozators);
-	void set_volume(uint32_t volume);
-	void set_feedrate(uint32_t feedrate);
-	void set_accel(uint32_t accel);
-	void set_reverse(uint32_t reverse);
+	void set_volume(double volume);
+	void set_feedrate(double feedrate);
+	void set_accel(double accel);
 	void set_gear_A(double gear_A);
 	void set_gear_B(double gear_B);
 	void set_ratio_A(double ratio_A);
 	void set_ratio_B(double ratio_B);
-	void set_direction(bool direction);
-
-	bool change_direction();
-	std::string to_print();
 
 private:
 	char dozators_;		// dozators mode
-	uint32_t volume_;	// ul
-	uint32_t feedrate_;	// ul/min
-	uint32_t accel_;	// ul/(min*sec)
-	uint32_t reverse_;	// procents (previously - ul)
+	double volume_;		// ul
+	double feedrate_;	// ul/min
+	double accel_;		// ul/(min*sec)
 	double gear_A_;		// pulses count / ml
 	double gear_B_;		// pulses count / ml
 	double ratio_A_;	// volume_A / (volume)
 	double ratio_B_;	// volume_B / (volume)
-	bool direction_;	// 
 };
 
 #endif // DATA_MODEL_H

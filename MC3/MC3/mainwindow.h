@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include <QIntValidator>
+//#include <QIntValidator>
 #include <QDoubleValidator>
 #include <QStringListModel>
 
@@ -16,8 +16,6 @@
 #include "../../src/DataModel.h"
 #include "../../src/OrderModel.h"
 #include "../../src/Protocol.h"
-#include "../../src/ActionProtocol.h"
-#include "../../src/ParametersProtocol.h"
 #include "../../src/TransmitController.h"
 #include "../../src/Keeper.h"
 
@@ -64,11 +62,18 @@ private slots:
 
     void on_pushButton_stop_clicked();
 
+    void on_pushButton_continues_clicked();
+
+    void on_pushButton_continues_pressed_pressed();
+
+    void on_pushButton_continues_pressed_released();
+
 private:
     Ui::MainWindow *ui;
     QStandardItemModel* spec_model_;
     QSerialPort serial_;
     OrderModel order_model_;
+    TransmitController transmit_order_;
 
     bool serial_connected_;
     QString serial_receive_data_;
@@ -79,7 +84,7 @@ private:
     void serial_init();
     void serial_connect(const QSerialPortInfo &info);
     void serial_disconnect();
-    void transmit(const OrderModel& order);
+    void transmit();
     void interface_init();
     void update_list();
 
@@ -87,6 +92,8 @@ private:
 
     void write_settings();
     void read_settings();
+
+    void keyPressEvent(QKeyEvent *event);
 
 };
 

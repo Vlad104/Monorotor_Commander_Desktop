@@ -5,26 +5,28 @@
 #include <string>
 #include "OrderModel.h"
 #include "DataModel.h"
-
-#include "ParametersProtocol.h"
-#include "ActionProtocol.h"
+#include "Protocol.h"
 
 class TransmitController {
 public:
-	TransmitController();
-	TransmitController(const OrderModel& order_);
+	TransmitController() = default;
 	~TransmitController() = default;
 
 	bool is_empty();
 	std::string get_command();
 
-private:
-	std::queue<std::string> transmit_data_;
-	std::string prev_parameters_;
-	OrderModel order_;
+	void get_stop();
+	void get_start(const OrderModel& order);
+	void get_continues(const OrderModel& order);
 
-	void make_transmit_data();
-	void prepare_model(DataModel& model);
+private:
+	std::queue<std::string>	transmit_order_;
+	OrderModel				order_;
+	DataModel				prev_model_;
+
+	void make_transmit_order(const OrderModel& order);
+	void add_transmit_data(const DataModel& model);
+	void clear_transmit_order();
 };
 
 #endif // TRANSMIT_CONTROLLER_H

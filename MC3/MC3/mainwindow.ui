@@ -68,22 +68,6 @@
       <string>В очередь</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_singleStart">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>210</x>
-       <y>270</y>
-       <width>121</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Пуск</string>
-     </property>
-    </widget>
     <widget class="QTabWidget" name="tabWidget_model">
      <property name="geometry">
       <rect>
@@ -462,19 +446,6 @@
          <string>Обратное направление</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_specChange">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>130</y>
-          <width>101</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Изменить</string>
-        </property>
-       </widget>
       </widget>
      </widget>
     </widget>
@@ -507,22 +478,6 @@
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
     </property>
-    <widget class="QPushButton" name="pushButton_start">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>270</y>
-       <width>121</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Пуск</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_delete">
      <property name="geometry">
       <rect>
@@ -659,25 +614,116 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_stop">
+   <widget class="QFrame" name="frame_transmit">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>420</y>
+      <y>390</y>
       <width>671</width>
-      <height>61</height>
+      <height>91</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>24</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-    <property name="text">
-     <string>СТОП</string>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
     </property>
+    <widget class="QPushButton" name="pushButton_stop">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>СТОП</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_continues">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>10</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Непрерывно</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_singleStart">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>10</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Пуск</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_start">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>10</y>
+       <width>121</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Пуск очереди</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_continues_pressed">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>40</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>По удержанию</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

@@ -31,8 +31,6 @@ SOURCES += \
         ../../src/DataModel.cpp \
         ../../src/TransmitController.cpp \
         ../../src/Protocol.cpp \
-        ../../src/ActionProtocol.cpp \
-        ../../src/ParametersProtocol.cpp \
         ../../src/Keeper.cpp \
         specordermodel.cpp
 
@@ -42,8 +40,6 @@ HEADERS += \
         ../../src/OrderModel.h \
         ../../src/TransmitController.h \
         ../../src/Protocol.h \
-        ../../src/ActionProtocol.h \
-        ../../src/ParametersProtocol.h \
         ../../src/Keeper.h \
         specordermodel.h
 
