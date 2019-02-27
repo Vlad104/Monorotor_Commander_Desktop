@@ -12,6 +12,7 @@
 #include <QTimer>
 #include <QEventLoop>
 #include <QSettings>
+#include <QLineEdit>
 
 #include "../../src/DataModel.h"
 #include "../../src/OrderModel.h"
@@ -68,6 +69,46 @@ private slots:
 
     void on_pushButton_continues_pressed_released();
 
+    void on_lineEdit_volume_selectionChanged();
+
+    void on_pushButton_n1_clicked();
+
+    void on_lineEdit_feedrate_selectionChanged();
+
+
+    void on_lineEdit_ratioB_selectionChanged();
+
+    void on_lineEdit_accel_selectionChanged();
+
+
+    void on_lineEdit_gearB_selectionChanged();
+
+    void on_pushButton_n2_clicked();
+
+    void on_pushButton_n3_clicked();
+
+    void on_pushButton_n4_clicked();
+
+    void on_pushButton_n5_clicked();
+
+    void on_pushButton_n6_clicked();
+
+    void on_pushButton_n7_clicked();
+
+    void on_pushButton_n8_clicked();
+
+    void on_pushButton_n9_clicked();
+
+    void on_pushButton_n11_clicked();
+
+    void on_pushButton_n0_clicked();
+
+    void on_pushButton_n12_clicked();
+
+    void on_lineEdit_ratioA_selectionChanged();
+
+    void on_lineEdit_gearA_selectionChanged();
+
 private:
     Ui::MainWindow *ui;
     QStandardItemModel* spec_model_;
@@ -80,6 +121,8 @@ private:
 
     QTimer* timer_;
     bool timeout_;
+
+    QLineEdit* active_edit_;
 
     void serial_init();
     void serial_connect(const QSerialPortInfo &info);

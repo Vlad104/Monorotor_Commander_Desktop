@@ -45,7 +45,7 @@
      <rect>
       <x>10</x>
       <y>110</y>
-      <width>431</width>
+      <width>551</width>
       <height>341</height>
      </rect>
     </property>
@@ -83,7 +83,7 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>411</width>
+       <width>531</width>
        <height>261</height>
       </rect>
      </property>
@@ -182,10 +182,13 @@
          <set>Qt::ImhDigitsOnly</set>
         </property>
         <property name="maxLength">
-         <number>4</number>
+         <number>15</number>
         </property>
        </widget>
        <widget class="QLabel" name="label_reverse">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -254,7 +257,7 @@
          <set>Qt::ImhDigitsOnly</set>
         </property>
         <property name="maxLength">
-         <number>6</number>
+         <number>15</number>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_ratioB">
@@ -275,10 +278,13 @@
          <set>Qt::ImhDigitsOnly</set>
         </property>
         <property name="maxLength">
-         <number>4</number>
+         <number>15</number>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_reverse">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -296,7 +302,7 @@
          <set>Qt::ImhDigitsOnly</set>
         </property>
         <property name="maxLength">
-         <number>6</number>
+         <number>15</number>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_volume">
@@ -317,7 +323,7 @@
          <set>Qt::ImhDigitsOnly</set>
         </property>
         <property name="maxLength">
-         <number>7</number>
+         <number>15</number>
         </property>
        </widget>
       </widget>
@@ -365,7 +371,7 @@
          <set>Qt::ImhDigitsOnly</set>
         </property>
         <property name="maxLength">
-         <number>6</number>
+         <number>15</number>
         </property>
        </widget>
        <widget class="QLabel" name="label_accel">
@@ -440,7 +446,7 @@
          <set>Qt::ImhDigitsOnly</set>
         </property>
         <property name="maxLength">
-         <number>8</number>
+         <number>15</number>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_gearB">
@@ -467,7 +473,7 @@
          <set>Qt::ImhDigitsOnly</set>
         </property>
         <property name="maxLength">
-         <number>8</number>
+         <number>15</number>
         </property>
        </widget>
        <widget class="QLabel" name="label_gearB">
@@ -495,6 +501,9 @@
         </property>
        </widget>
        <widget class="QCheckBox" name="checkBox_dir">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -510,13 +519,154 @@
          </size>
         </property>
         <property name="text">
-         <string>Реверс напаравления</string>
+         <string>Реверс направления</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Страница</string>
+      </attribute>
+      <widget class="QFrame" name="frame_order">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>521</width>
+         <height>211</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <widget class="QPushButton" name="pushButton_delete">
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>170</y>
+          <width>120</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Удалить</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_reset">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>120</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Сброс</string>
+        </property>
+       </widget>
+       <widget class="QTableView" name="tableView_order">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>500</width>
+          <height>151</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>100</number>
+        </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>100</number>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderDefaultSectionSize">
+         <number>33</number>
+        </attribute>
+        <attribute name="verticalHeaderMinimumSectionSize">
+         <number>30</number>
+        </attribute>
+       </widget>
+       <widget class="QCheckBox" name="checkBox_loop">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>170</y>
+          <width>121</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Циклично</string>
         </property>
        </widget>
       </widget>
      </widget>
     </widget>
     <widget class="QPushButton" name="pushButton_change">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>140</x>
@@ -535,132 +685,12 @@
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame_order">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>110</y>
-      <width>421</width>
-      <height>341</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <widget class="QPushButton" name="pushButton_delete">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>300</y>
-       <width>120</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Удалить</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_reset">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>300</y>
-       <width>120</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Сброс</string>
-     </property>
-    </widget>
-    <widget class="QTableView" name="tableView_order">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>400</width>
-       <height>281</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
-     </property>
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="alternatingRowColors">
-      <bool>false</bool>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <property name="gridStyle">
-      <enum>Qt::SolidLine</enum>
-     </property>
-     <attribute name="horizontalHeaderCascadingSectionResizes">
-      <bool>true</bool>
-     </attribute>
-     <attribute name="horizontalHeaderDefaultSectionSize">
-      <number>100</number>
-     </attribute>
-     <attribute name="horizontalHeaderMinimumSectionSize">
-      <number>100</number>
-     </attribute>
-     <attribute name="verticalHeaderVisible">
-      <bool>false</bool>
-     </attribute>
-     <attribute name="verticalHeaderDefaultSectionSize">
-      <number>30</number>
-     </attribute>
-     <attribute name="verticalHeaderMinimumSectionSize">
-      <number>30</number>
-     </attribute>
-    </widget>
-   </widget>
    <widget class="QFrame" name="frame_com">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>431</width>
+      <width>551</width>
       <height>91</height>
      </rect>
     </property>
@@ -853,6 +883,178 @@
      </property>
     </widget>
    </widget>
+   <widget class="QFrame" name="frame_numbers">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>10</y>
+      <width>431</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <widget class="QPushButton" name="pushButton_n1">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n2">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>10</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>2</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n3">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>10</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>4</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n5">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>110</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>5</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n6">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>110</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>6</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n7">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>7</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n8">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>210</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>8</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n9">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>210</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>9</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n11">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>310</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>.</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n0">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>310</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_n12">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>310</y>
+       <width>100</width>
+       <height>90</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>&lt;&lt;</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -860,7 +1062,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

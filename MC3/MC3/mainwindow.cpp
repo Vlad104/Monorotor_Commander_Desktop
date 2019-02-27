@@ -42,6 +42,8 @@ void MainWindow::interface_init() {
     ui->pushButton_continues->setEnabled(true);
     ui->pushButton_continues_pressed->setEnabled(true);
 
+    active_edit_ = ui->lineEdit_volume;
+
     //ui->pushButton_stop->setStyleSheet("background-color: red");
 
     read_settings();
@@ -321,4 +323,104 @@ void MainWindow::on_pushButton_continues_pressed_released()
 {
     transmit_order_.get_stop();
     transmit();
+}
+
+void MainWindow::on_lineEdit_volume_selectionChanged()
+{
+    active_edit_ = ui->lineEdit_volume;
+}
+
+void MainWindow::on_lineEdit_feedrate_selectionChanged()
+{
+    active_edit_ = ui->lineEdit_feedrate;
+}
+
+void MainWindow::on_lineEdit_ratioA_selectionChanged()
+{
+    active_edit_ = ui->lineEdit_ratioA;
+}
+
+void MainWindow::on_lineEdit_ratioB_selectionChanged()
+{
+    active_edit_ = ui->lineEdit_ratioB;
+}
+
+void MainWindow::on_lineEdit_accel_selectionChanged()
+{
+    active_edit_ = ui->lineEdit_accel;
+}
+
+void MainWindow::on_lineEdit_gearA_selectionChanged()
+{
+    active_edit_ = ui->lineEdit_gearA;
+}
+
+void MainWindow::on_lineEdit_gearB_selectionChanged()
+{
+    active_edit_ = ui->lineEdit_gearB;
+}
+
+void MainWindow::on_pushButton_n1_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "1");
+}
+
+void MainWindow::on_pushButton_n2_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "2");
+}
+
+
+void MainWindow::on_pushButton_n3_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "3");
+}
+
+void MainWindow::on_pushButton_n4_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "4");
+}
+
+void MainWindow::on_pushButton_n5_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "5");
+}
+
+void MainWindow::on_pushButton_n6_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "6");
+}
+
+void MainWindow::on_pushButton_n7_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "7");
+}
+
+void MainWindow::on_pushButton_n8_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "8");
+}
+
+void MainWindow::on_pushButton_n9_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "9");
+}
+
+void MainWindow::on_pushButton_n11_clicked()
+{
+    active_edit_->setText(active_edit_->text() + ".");
+}
+
+void MainWindow::on_pushButton_n0_clicked()
+{
+    active_edit_->setText(active_edit_->text() + "0");
+}
+
+void MainWindow::on_pushButton_n12_clicked()
+{
+    QString temp = active_edit_->text();
+    if (temp.size() > 0) {
+        temp.resize(temp.size() - 1);
+    }
+    active_edit_->setText(temp);
 }
