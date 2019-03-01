@@ -45,6 +45,7 @@ void MainWindow::interface_init() {
     active_edit_ = ui->lineEdit_volume;
 
     //ui->pushButton_stop->setStyleSheet("background-color: red");
+    ui->frame_indicator->setStyleSheet("background-color: red");
 
     read_settings();
 
@@ -53,8 +54,8 @@ void MainWindow::interface_init() {
     serial_init();
     update_list();
 
-    QObject::connect(this, SIGNAL(com_conneted_signal()), this, SLOT(com_conneted()));
-    QObject::connect(this, SIGNAL(com_disconneted_signal()), this, SLOT(com_disconneted()));
+    //QObject::connect(this, SIGNAL(com_conneted_signal()), this, SLOT(com_conneted()));
+    //QObject::connect(this, SIGNAL(com_disconneted_signal()), this, SLOT(com_disconneted()));
     QObject::connect(&serial_, &QSerialPort::readyRead, this, &MainWindow::receive);    
     //QObject::connect(timer_, SIGNAL(timeout()), this, SLOT(transmit_timeout()));
 }
@@ -78,7 +79,6 @@ void MainWindow::serial_connect(const QSerialPortInfo &info) {
     serial_.setPort(info);
     if (serial_.open(QIODevice::ReadWrite)) {
         qDebug() << "connected";
-
     }
 }
 
@@ -90,6 +90,26 @@ void MainWindow::serial_disconnect() {
 void MainWindow::transmit_timeout() {
     qDebug() << "Таймер вышел";
     timeout_ = true;
+}
+
+bool MainWindow::check_protocol() {
+    bool result = false;
+    serial_.write("=0");
+    QEventLoop evloop;
+    for (int i = 0; i < 1000; i++) {
+        QThread::msleep(1);
+        evloop.processEvents();
+    }
+    if (serial_receive_data_ == "!") {
+        qDebug() << "Protocol OK";
+        result = true;
+    } else {
+        qDebug() << "Protocol NOT OK";
+        QMessageBox::warning(this, "Ошибка подключения", "Повторите подключение, перезагрузите блок управления или обновите прошивку.");
+        result = false;
+    }
+    serial_receive_data_ = "";
+    return result;
 }
 
 void MainWindow::transmit() {
@@ -109,11 +129,9 @@ void MainWindow::transmit() {
         if (serial_receive_data_ == "!") {
             qDebug() << "Very good";
             serial_receive_data_ = "";
-            //continue;
         } else {
             qDebug() << "Not good";
             serial_receive_data_ = "";
-            //continue;
         }
     }
 }
@@ -121,6 +139,7 @@ void MainWindow::transmit() {
 void MainWindow::receive() {
     const QByteArray data = serial_.readAll();
     serial_receive_data_ = data;
+    qDebug() << "RXed";
 }
 
 void MainWindow::update_list() {
@@ -132,11 +151,13 @@ void MainWindow::update_list() {
 void MainWindow::com_conneted() {
     ui->pushButton_com->setText("Отключить");
     ui->frame_transmit->setEnabled(true);
+    ui->pushButton_start->setEnabled(true);
 }
 
 void MainWindow::com_disconneted() {
     ui->pushButton_com->setText("Подключить");
     ui->frame_transmit->setEnabled(false);
+    ui->pushButton_start->setEnabled(false);
 }
 
 void MainWindow::on_pushButton_com_clicked()
@@ -144,15 +165,17 @@ void MainWindow::on_pushButton_com_clicked()
     if (serial_connected_) {
         serial_disconnect();
         serial_connected_ = false;
-        emit com_disconneted();
+        com_disconneted();
     } else {
         if (ui->comboBox_com->count() > 0) {
             QString port = ui->comboBox_com->currentText();
             foreach (const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
                 if (info.portName() == port) {
                     serial_connect(info);
-                    serial_connected_ = true;
-                    emit com_conneted();
+                    if (check_protocol()) {
+                        serial_connected_ = true;
+                        com_conneted();
+                    }
                     break;
                 }
             }
@@ -195,9 +218,26 @@ DataModel MainWindow::make_data_model() {
     return DataModel(D, V, F, A, Wa, Wb, Ra, Rb);
 }
 
+DataModel MainWindow::make_data_model_reverse() {
+    int iD = ui->comboBox_dozators->currentIndex();
+    double R = ui->lineEdit_reverse->text().toDouble();
+    R *= -1;
+    double F = ui->lineEdit_feedrate->text().toDouble();
+    double A = ui->lineEdit_accel->text().toDouble();
+    double Wa = ui->lineEdit_gearA->text().toDouble();
+    double Wb = ui->lineEdit_gearB->text().toDouble();
+    double Ra = ui->lineEdit_ratioA->text().toDouble();
+    double Rb = ui->lineEdit_ratioB->text().toDouble();
+    char temp[3] = {'2', '0', '1'};
+    char D = temp[iD];
+
+    return DataModel(D, R, F, A, Wa, Wb, Ra, Rb);
+}
+
 void MainWindow::on_pushButton_add_clicked()
 {
     order_model_.emplace_back(make_data_model());
+    order_model_.emplace_back(make_data_model_reverse());
     update_list();
 }
 
@@ -245,6 +285,7 @@ void MainWindow::on_pushButton_singleStart_clicked()
 {
     OrderModel order;
     order.emplace_back(make_data_model());
+    order.emplace_back(make_data_model_reverse());
     transmit_order_.get_start(order);
     transmit();
 }
@@ -423,4 +464,17 @@ void MainWindow::on_pushButton_n12_clicked()
         temp.resize(temp.size() - 1);
     }
     active_edit_->setText(temp);
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QString file = "Monorotor_Firmware_3.NUCLEO_F446RE.bin";
+    QString path = "D:\\" + file;
+    if (QFile::exists(file)) {
+        qDebug() << "exists";
+        QFile::copy(file, path);
+    } else {
+        qDebug() << "not exists";
+    }
+
 }

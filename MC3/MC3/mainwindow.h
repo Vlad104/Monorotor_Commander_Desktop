@@ -10,9 +10,13 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QTimer>
+#include <QThread>
+#include <QMessageBox>
 #include <QEventLoop>
 #include <QSettings>
 #include <QLineEdit>
+#include <QFile>
+#include <QDir>
 
 #include "../../src/DataModel.h"
 #include "../../src/OrderModel.h"
@@ -109,6 +113,8 @@ private slots:
 
     void on_lineEdit_gearA_selectionChanged();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QStandardItemModel* spec_model_;
@@ -127,11 +133,13 @@ private:
     void serial_init();
     void serial_connect(const QSerialPortInfo &info);
     void serial_disconnect();
+    bool check_protocol();
     void transmit();
     void interface_init();
     void update_list();
 
     DataModel make_data_model();
+    DataModel make_data_model_reverse();
 
     void write_settings();
     void read_settings();

@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
@@ -18,6 +19,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -31,6 +33,9 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *action;
+    QAction *action_2;
+    QAction *action_3;
     QWidget *centralWidget;
     QFrame *frame_model;
     QPushButton *pushButton_add;
@@ -62,16 +67,18 @@ public:
     QPushButton *pushButton_reset;
     QTableView *tableView_order;
     QCheckBox *checkBox_loop;
+    QPushButton *pushButton_start;
     QPushButton *pushButton_change;
     QFrame *frame_com;
     QComboBox *comboBox_com;
     QPushButton *pushButton_com;
     QLabel *label_com;
+    QFrame *frame_indicator;
+    QPushButton *pushButton;
     QFrame *frame_transmit;
     QPushButton *pushButton_stop;
     QPushButton *pushButton_continues;
     QPushButton *pushButton_singleStart;
-    QPushButton *pushButton_start;
     QPushButton *pushButton_continues_pressed;
     QFrame *frame_numbers;
     QPushButton *pushButton_n1;
@@ -87,6 +94,7 @@ public:
     QPushButton *pushButton_n0;
     QPushButton *pushButton_n12;
     QMenuBar *menuBar;
+    QMenu *menu;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -106,6 +114,15 @@ public:
         font.setPointSize(14);
         MainWindow->setFont(font);
         MainWindow->setInputMethodHints(Qt::ImhNone);
+        action = new QAction(MainWindow);
+        action->setObjectName(QString::fromUtf8("action"));
+        action->setEnabled(false);
+        action_2 = new QAction(MainWindow);
+        action_2->setObjectName(QString::fromUtf8("action_2"));
+        action_2->setEnabled(false);
+        action_3 = new QAction(MainWindow);
+        action_3->setObjectName(QString::fromUtf8("action_3"));
+        action_3->setEnabled(false);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         frame_model = new QFrame(centralWidget);
@@ -149,7 +166,7 @@ public:
         lineEdit_ratioA->setMaxLength(15);
         label_reverse = new QLabel(frame_params);
         label_reverse->setObjectName(QString::fromUtf8("label_reverse"));
-        label_reverse->setEnabled(false);
+        label_reverse->setEnabled(true);
         label_reverse->setGeometry(QRect(200, 90, 160, 30));
         label_reverse->setFont(font);
         label_feedrate = new QLabel(frame_params);
@@ -174,7 +191,7 @@ public:
         lineEdit_ratioB->setMaxLength(15);
         lineEdit_reverse = new QLineEdit(frame_params);
         lineEdit_reverse->setObjectName(QString::fromUtf8("lineEdit_reverse"));
-        lineEdit_reverse->setEnabled(false);
+        lineEdit_reverse->setEnabled(true);
         lineEdit_reverse->setGeometry(QRect(10, 90, 180, 30));
         lineEdit_reverse->setFont(font);
         lineEdit_reverse->setInputMethodHints(Qt::ImhDigitsOnly);
@@ -245,7 +262,7 @@ public:
         frame_order->setFrameShadow(QFrame::Plain);
         pushButton_delete = new QPushButton(frame_order);
         pushButton_delete->setObjectName(QString::fromUtf8("pushButton_delete"));
-        pushButton_delete->setGeometry(QRect(140, 170, 120, 30));
+        pushButton_delete->setGeometry(QRect(150, 170, 120, 30));
         pushButton_delete->setFont(font);
         pushButton_reset = new QPushButton(frame_order);
         pushButton_reset->setObjectName(QString::fromUtf8("pushButton_reset"));
@@ -276,7 +293,13 @@ public:
         tableView_order->verticalHeader()->setMinimumSectionSize(30);
         checkBox_loop = new QCheckBox(frame_order);
         checkBox_loop->setObjectName(QString::fromUtf8("checkBox_loop"));
-        checkBox_loop->setGeometry(QRect(270, 170, 121, 31));
+        checkBox_loop->setEnabled(false);
+        checkBox_loop->setGeometry(QRect(440, 170, 71, 31));
+        pushButton_start = new QPushButton(frame_order);
+        pushButton_start->setObjectName(QString::fromUtf8("pushButton_start"));
+        pushButton_start->setEnabled(false);
+        pushButton_start->setGeometry(QRect(290, 170, 120, 30));
+        pushButton_start->setFont(font);
         tabWidget_model->addTab(tab, QString());
         pushButton_change = new QPushButton(frame_model);
         pushButton_change->setObjectName(QString::fromUtf8("pushButton_change"));
@@ -295,12 +318,21 @@ public:
         comboBox_com->setFont(font);
         pushButton_com = new QPushButton(frame_com);
         pushButton_com->setObjectName(QString::fromUtf8("pushButton_com"));
-        pushButton_com->setGeometry(QRect(210, 50, 180, 30));
+        pushButton_com->setGeometry(QRect(210, 50, 150, 30));
         pushButton_com->setFont(font);
         label_com = new QLabel(frame_com);
         label_com->setObjectName(QString::fromUtf8("label_com"));
         label_com->setGeometry(QRect(10, 10, 211, 31));
         label_com->setFont(font);
+        frame_indicator = new QFrame(frame_com);
+        frame_indicator->setObjectName(QString::fromUtf8("frame_indicator"));
+        frame_indicator->setGeometry(QRect(210, 20, 20, 20));
+        frame_indicator->setFrameShape(QFrame::StyledPanel);
+        frame_indicator->setFrameShadow(QFrame::Plain);
+        pushButton = new QPushButton(frame_com);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setEnabled(true);
+        pushButton->setGeometry(QRect(380, 50, 150, 30));
         frame_transmit = new QFrame(centralWidget);
         frame_transmit->setObjectName(QString::fromUtf8("frame_transmit"));
         frame_transmit->setEnabled(false);
@@ -325,11 +357,6 @@ public:
         pushButton_singleStart->setEnabled(false);
         pushButton_singleStart->setGeometry(QRect(610, 10, 180, 30));
         pushButton_singleStart->setFont(font);
-        pushButton_start = new QPushButton(frame_transmit);
-        pushButton_start->setObjectName(QString::fromUtf8("pushButton_start"));
-        pushButton_start->setEnabled(false);
-        pushButton_start->setGeometry(QRect(810, 10, 180, 30));
-        pushButton_start->setFont(font);
         pushButton_continues_pressed = new QPushButton(frame_transmit);
         pushButton_continues_pressed->setObjectName(QString::fromUtf8("pushButton_continues_pressed"));
         pushButton_continues_pressed->setGeometry(QRect(10, 10, 180, 30));
@@ -379,6 +406,8 @@ public:
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1024, 21));
+        menu = new QMenu(menuBar);
+        menu->setObjectName(QString::fromUtf8("menu"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -387,9 +416,14 @@ public:
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
+        menuBar->addAction(menu->menuAction());
+        menu->addAction(action);
+        menu->addAction(action_2);
+        menu->addAction(action_3);
+
         retranslateUi(MainWindow);
 
-        tabWidget_model->setCurrentIndex(1);
+        tabWidget_model->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -398,6 +432,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Monorotor Commander 3", nullptr));
+        action->setText(QApplication::translate("MainWindow", "\320\237\320\265\321\200\320\265\320\277\321\200\320\276\321\210\320\270\321\202\321\214", nullptr));
+        action_2->setText(QApplication::translate("MainWindow", "\320\241\320\272\320\260\321\207\320\260\321\202\321\214 \320\277\321\200\320\276\321\210\320\270\320\262\320\272\321\203", nullptr));
+        action_3->setText(QApplication::translate("MainWindow", "\320\241\320\272\320\260\321\207\320\260\321\202\321\214 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\203", nullptr));
         pushButton_add->setText(QApplication::translate("MainWindow", "\320\222 \320\276\321\207\320\265\321\200\320\265\320\264\321\214", nullptr));
         label_ratioAB->setText(QApplication::translate("MainWindow", "\320\241\320\276\320\276\321\202\320\275\320\276\321\210\320\265\320\275\320\270\320\265 A:B", nullptr));
         label_volume->setText(QApplication::translate("MainWindow", "\320\236\320\261\321\212\321\221\320\274, \320\274\320\272\320\273", nullptr));
@@ -411,15 +448,16 @@ public:
         tabWidget_model->setTabText(tabWidget_model->indexOf(tab_details), QApplication::translate("MainWindow", "\320\240\320\260\321\201\321\210\320\270\321\200\320\265\320\275\320\275\321\213\320\265", nullptr));
         pushButton_delete->setText(QApplication::translate("MainWindow", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
         pushButton_reset->setText(QApplication::translate("MainWindow", "\320\241\320\261\321\200\320\276\321\201", nullptr));
-        checkBox_loop->setText(QApplication::translate("MainWindow", "\320\246\320\270\320\272\320\273\320\270\321\207\320\275\320\276", nullptr));
-        tabWidget_model->setTabText(tabWidget_model->indexOf(tab), QApplication::translate("MainWindow", "\320\241\321\202\321\200\320\260\320\275\320\270\321\206\320\260", nullptr));
+        checkBox_loop->setText(QApplication::translate("MainWindow", "\320\246\320\270\320\272\320\273", nullptr));
+        pushButton_start->setText(QApplication::translate("MainWindow", "\320\237\321\203\321\201\320\272", nullptr));
+        tabWidget_model->setTabText(tabWidget_model->indexOf(tab), QApplication::translate("MainWindow", "\320\236\321\207\320\265\321\200\320\265\320\264\321\214", nullptr));
         pushButton_change->setText(QApplication::translate("MainWindow", "\320\230\320\267\320\274\320\265\320\275\320\270\321\202\321\214", nullptr));
         pushButton_com->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\272\320\273\321\216\321\207\320\270\321\202\321\214", nullptr));
         label_com->setText(QApplication::translate("MainWindow", "\320\222\321\213\320\261\320\265\321\200\320\270\321\202\320\265 COM-\320\277\320\276\321\200\321\202", nullptr));
+        pushButton->setText(QApplication::translate("MainWindow", "\320\237\320\265\321\200\320\265\320\277\321\200\320\276\321\210\320\270\321\202\321\214", nullptr));
         pushButton_stop->setText(QApplication::translate("MainWindow", "\320\241\320\242\320\236\320\237", nullptr));
         pushButton_continues->setText(QApplication::translate("MainWindow", "\320\235\320\265\320\277\321\200\320\265\321\200\321\213\320\262\320\275\320\276", nullptr));
         pushButton_singleStart->setText(QApplication::translate("MainWindow", "\320\237\321\203\321\201\320\272", nullptr));
-        pushButton_start->setText(QApplication::translate("MainWindow", "\320\237\321\203\321\201\320\272 \320\276\321\207\320\265\321\200\320\265\320\264\320\270", nullptr));
         pushButton_continues_pressed->setText(QApplication::translate("MainWindow", "\320\237\320\276 \321\203\320\264\320\265\321\200\320\266\320\260\320\275\320\270\321\216", nullptr));
         pushButton_n1->setText(QApplication::translate("MainWindow", "1", nullptr));
         pushButton_n2->setText(QApplication::translate("MainWindow", "2", nullptr));
@@ -433,6 +471,7 @@ public:
         pushButton_n11->setText(QApplication::translate("MainWindow", ".", nullptr));
         pushButton_n0->setText(QApplication::translate("MainWindow", "0", nullptr));
         pushButton_n12->setText(QApplication::translate("MainWindow", "<<", nullptr));
+        menu->setTitle(QApplication::translate("MainWindow", "\320\224\320\265\320\271\321\201\321\202\320\262\320\270\321\217", nullptr));
     } // retranslateUi
 
 };
