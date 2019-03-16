@@ -15,13 +15,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
     write_settings();
     Keeper::save(order_model_);
     delete timer_;
     delete spec_model_;
-    delete ui;
 }
-
 
 void MainWindow::interface_init() {
     ui->lineEdit_volume->setValidator(new QDoubleValidator);
@@ -45,7 +47,7 @@ void MainWindow::interface_init() {
     active_edit_ = ui->lineEdit_volume;
 
     //ui->pushButton_stop->setStyleSheet("background-color: red");
-    ui->frame_indicator->setStyleSheet("background-color: red");
+    //ui->frame_indicator->setStyleSheet("background-color: red");
 
     read_settings();
 
@@ -283,10 +285,13 @@ void MainWindow::on_pushButton_start_clicked()
 
 void MainWindow::on_pushButton_singleStart_clicked()
 {
-    OrderModel order;
-    order.emplace_back(make_data_model());
-    order.emplace_back(make_data_model_reverse());
-    transmit_order_.get_start(order);
+    OrderModel order1;
+    order1.emplace_back(make_data_model());
+    transmit_order_.get_start(order1);
+    transmit();
+    OrderModel order2;
+    order2.emplace_back(make_data_model_reverse());
+    transmit_order_.get_start(order2);
     transmit();
 }
 
@@ -468,7 +473,8 @@ void MainWindow::on_pushButton_n12_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString file = "Monorotor_Firmware_3.NUCLEO_F446RE.bin";
+    //QString file = "Monorotor_Firmware_3.NUCLEO_F446RE.bin";
+    QString file = "Monorotor_Firmware_3.NUCLEO_F103RB.bin";
     QString path = "D:\\" + file;
     if (QFile::exists(file)) {
         qDebug() << "exists";
