@@ -80,6 +80,7 @@ public:
     QPushButton *pushButton_singleStart;
     QPushButton *pushButton_continues_pressed;
     QTabWidget *tabWidget_right;
+    QWidget *tab_3;
     QWidget *buttons;
     QFrame *frame_numbers;
     QPushButton *pushButton_n1;
@@ -94,7 +95,6 @@ public:
     QPushButton *pushButton_n11;
     QPushButton *pushButton_n0;
     QPushButton *pushButton_n12;
-    QWidget *tab_3;
     QMenuBar *menuBar;
     QMenu *menu;
     QToolBar *mainToolBar;
@@ -361,6 +361,9 @@ public:
         tabWidget_right = new QTabWidget(centralWidget);
         tabWidget_right->setObjectName(QString::fromUtf8("tabWidget_right"));
         tabWidget_right->setGeometry(QRect(570, 10, 431, 441));
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        tabWidget_right->addTab(tab_3, QString());
         buttons = new QWidget();
         buttons->setObjectName(QString::fromUtf8("buttons"));
         frame_numbers = new QFrame(buttons);
@@ -405,9 +408,6 @@ public:
         pushButton_n12->setObjectName(QString::fromUtf8("pushButton_n12"));
         pushButton_n12->setGeometry(QRect(230, 280, 100, 85));
         tabWidget_right->addTab(buttons, QString());
-        tab_3 = new QWidget();
-        tab_3->setObjectName(QString::fromUtf8("tab_3"));
-        tabWidget_right->addTab(tab_3, QString());
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -429,7 +429,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget_model->setCurrentIndex(0);
+        tabWidget_model->setCurrentIndex(2);
         tabWidget_right->setCurrentIndex(0);
 
 
@@ -444,15 +444,15 @@ public:
         action_3->setText(QApplication::translate("MainWindow", "\320\241\320\272\320\260\321\207\320\260\321\202\321\214 \320\277\321\200\320\276\320\263\321\200\320\260\320\274\320\274\321\203", nullptr));
         pushButton_add->setText(QApplication::translate("MainWindow", "\320\222 \320\276\321\207\320\265\321\200\320\265\320\264\321\214", nullptr));
         label_ratioAB->setText(QApplication::translate("MainWindow", "\320\241\320\276\320\276\321\202\320\275\320\276\321\210\320\265\320\275\320\270\320\265 A:B", nullptr));
-        label_volume->setText(QApplication::translate("MainWindow", "\320\236\320\261\321\212\321\221\320\274, \320\274\320\272\320\273", nullptr));
-        label_reverse->setText(QApplication::translate("MainWindow", "\320\240\320\265\320\262\320\265\321\200\321\201, \320\274\320\272\320\273", nullptr));
-        label_feedrate->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\260\321\207\320\260, \320\274\320\272\320\273/\320\274\320\270\320\275", nullptr));
+        label_volume->setText(QApplication::translate("MainWindow", "\320\236\320\261\321\212\321\221\320\274, \320\274\320\273", nullptr));
+        label_reverse->setText(QApplication::translate("MainWindow", "\320\240\320\265\320\262\320\265\321\200\321\201, \320\274\320\273", nullptr));
+        label_feedrate->setText(QApplication::translate("MainWindow", "\320\237\320\276\320\264\320\260\321\207\320\260, \320\274\320\273/\320\274\320\270\320\275", nullptr));
         tabWidget_model->setTabText(tabWidget_model->indexOf(tab_params), QApplication::translate("MainWindow", "\320\236\321\201\320\275\320\276\320\262\320\275\321\213\320\265", nullptr));
-        label_accel->setText(QApplication::translate("MainWindow", "\320\243\321\201\320\272\320\276\321\200\320\265\320\275\320\270\320\265, \320\274\320\272\320\273/\320\274\320\270\320\275\321\201\320\265\320\272", nullptr));
+        label_accel->setText(QApplication::translate("MainWindow", "\320\243\321\201\320\272\320\276\321\200\320\265\320\275\320\270\320\265, \320\274\320\273/\320\274\320\270\320\275\321\201\320\265\320\272", nullptr));
         label_gearA->setText(QApplication::translate("MainWindow", "\320\232\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202 \320\220", nullptr));
         label_gearB->setText(QApplication::translate("MainWindow", "\320\232\320\276\321\215\321\204\321\204\320\270\321\206\320\270\320\265\320\275\321\202 B", nullptr));
         checkBox_dir->setText(QApplication::translate("MainWindow", "\320\240\320\265\320\262\320\265\321\200\321\201 \320\275\320\260\320\277\321\200\320\260\320\262\320\273\320\265\320\275\320\270\321\217", nullptr));
-        tabWidget_model->setTabText(tabWidget_model->indexOf(tab_details), QApplication::translate("MainWindow", "\320\240\320\260\321\201\321\210\320\270\321\200\320\265\320\275\320\275\321\213\320\265", nullptr));
+        tabWidget_model->setTabText(tabWidget_model->indexOf(tab_details), QApplication::translate("MainWindow", "\320\224\320\276\320\277\320\276\320\273\320\275\320\270\321\202\320\265\320\273\321\214\320\275\321\213\320\265", nullptr));
         pushButton_delete->setText(QApplication::translate("MainWindow", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
         pushButton_reset->setText(QApplication::translate("MainWindow", "\320\241\320\261\321\200\320\276\321\201", nullptr));
         checkBox_loop->setText(QApplication::translate("MainWindow", "\320\246\320\270\320\272\320\273", nullptr));
@@ -466,6 +466,7 @@ public:
         pushButton_continues->setText(QApplication::translate("MainWindow", "\320\235\320\265\320\277\321\200\320\265\321\200\321\213\320\262\320\275\320\276", nullptr));
         pushButton_singleStart->setText(QApplication::translate("MainWindow", "\320\237\321\203\321\201\320\272", nullptr));
         pushButton_continues_pressed->setText(QApplication::translate("MainWindow", "\320\237\320\276 \321\203\320\264\320\265\321\200\320\266\320\260\320\275\320\270\321\216", nullptr));
+        tabWidget_right->setTabText(tabWidget_right->indexOf(tab_3), QApplication::translate("MainWindow", "\320\235\320\270\321\207\320\265\320\263\320\276", nullptr));
         pushButton_n1->setText(QApplication::translate("MainWindow", "1", nullptr));
         pushButton_n2->setText(QApplication::translate("MainWindow", "2", nullptr));
         pushButton_n3->setText(QApplication::translate("MainWindow", "3", nullptr));
@@ -479,7 +480,6 @@ public:
         pushButton_n0->setText(QApplication::translate("MainWindow", "0", nullptr));
         pushButton_n12->setText(QApplication::translate("MainWindow", "<<", nullptr));
         tabWidget_right->setTabText(tabWidget_right->indexOf(buttons), QApplication::translate("MainWindow", "\320\232\320\275\320\276\320\277\320\272\320\270", nullptr));
-        tabWidget_right->setTabText(tabWidget_right->indexOf(tab_3), QApplication::translate("MainWindow", "\320\235\320\270\321\207\320\265\320\263\320\276", nullptr));
         menu->setTitle(QApplication::translate("MainWindow", "\320\224\320\265\320\271\321\201\321\202\320\262\320\270\321\217", nullptr));
     } // retranslateUi
 

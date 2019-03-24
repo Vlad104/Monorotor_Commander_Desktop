@@ -279,8 +279,12 @@ void MainWindow::read_settings() {
 
 void MainWindow::on_pushButton_start_clicked()
 {
-    transmit_order_.get_start(order_model_);
-    transmit();
+    for (auto& model : order_model_) {
+        OrderModel order;
+        order.emplace_back(model);
+        transmit_order_.get_start(order);
+        transmit();
+    }
 }
 
 void MainWindow::on_pushButton_singleStart_clicked()
@@ -474,7 +478,7 @@ void MainWindow::on_pushButton_n12_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     //QString file = "Monorotor_Firmware_3.NUCLEO_F446RE.bin";
-    QString file = "Monorotor_Firmware_3.NUCLEO_F103RB.bin";
+    QString file = QFileDialog::getOpenFileName(this, tr("Open Proshivka"));
     QString path = "D:\\" + file;
     if (QFile::exists(file)) {
         qDebug() << "exists";

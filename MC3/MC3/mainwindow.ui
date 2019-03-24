@@ -99,7 +99,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -161,7 +161,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Объём, мкл</string>
+         <string>Объём, мл</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="lineEdit_ratioA">
@@ -203,7 +203,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Реверс, мкл</string>
+         <string>Реверс, мл</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_feedrate">
@@ -221,7 +221,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Подача, мкл/мин</string>
+         <string>Подача, мл/мин</string>
         </property>
        </widget>
        <widget class="QComboBox" name="comboBox_dozators">
@@ -330,7 +330,7 @@
      </widget>
      <widget class="QWidget" name="tab_details">
       <attribute name="title">
-       <string>Расширенные</string>
+       <string>Дополнительные</string>
       </attribute>
       <widget class="QFrame" name="frame_details">
        <property name="geometry">
@@ -395,7 +395,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Ускорение, мкл/минсек</string>
+         <string>Ускорение, мл/минсек</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_gearA">
@@ -914,6 +914,11 @@
     <property name="currentIndex">
      <number>0</number>
     </property>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Ничего</string>
+     </attribute>
+    </widget>
     <widget class="QWidget" name="buttons">
      <attribute name="title">
       <string>Кнопки</string>
@@ -1090,11 +1095,6 @@
        </property>
       </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="tab_3">
-     <attribute name="title">
-      <string>Ничего</string>
-     </attribute>
     </widget>
    </widget>
   </widget>

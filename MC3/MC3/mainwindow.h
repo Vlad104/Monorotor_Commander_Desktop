@@ -16,6 +16,7 @@
 #include <QSettings>
 #include <QLineEdit>
 #include <QFile>
+#include <QFileDialog>
 #include <QDir>
 
 #include "../../src/DataModel.h"
