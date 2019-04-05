@@ -1,3 +1,6 @@
 *.exe
 *.out
 *.o
+*.dll
+*.a
+MCD/build*

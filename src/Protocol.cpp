@@ -33,7 +33,7 @@ std::string Protocol::make_gear_B(double gear_B) {
 
 std::string Protocol::make_ratio(double ratio) {
 	std::string str_value = convert_to_string(ratio);
-	return "@R" + str_value + "*";
+    return "@r" + str_value + "*";
 }
 
 std::string Protocol::convert_to_string(double value) {

@@ -2,17 +2,12 @@
 #define DATA_MODEL_H
 
 #include <string>
-#include <sstream>
 
 class DataModel {
 public:
 	DataModel();
 	DataModel(char dozators, double volume, double feedrate, double accel, 
 			double gear_A, double gear_B, double ratio_A, double ratio_B);
-	//DataModel(const DataModel& other);
-	//DataModel& operator=(const DataModel&);
-	//DataModel(DataModel&& other);
-	//DataModel& operator=(DataModel&&);
 	~DataModel();
 
 	char get_dozators() const;
