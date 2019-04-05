@@ -66,6 +66,7 @@ void MCDSerial::internal_connect(const QSerialPortInfo& info) {
 
 void MCDSerial::disconnect() {
     close();
+    connected_ = false;
     qDebug() << "disconnected";
 }
 
@@ -89,6 +90,8 @@ void MCDSerial::transmit(TransmitController& data) {
             receive_data_ = "";
         }
     }
+    qDebug() << "Command complete!";
+    return;
 }
 
 void MCDSerial::receive() {
