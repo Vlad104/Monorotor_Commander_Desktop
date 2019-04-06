@@ -10,6 +10,8 @@
 
 #include "../../src/TransmitController.h"
 
+const int wait_answer_times = 200;
+
 class MCDSerial : public QSerialPort {
 public:
     MCDSerial();

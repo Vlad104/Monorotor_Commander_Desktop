@@ -31,14 +31,18 @@ SOURCES += \
         ../../src/DataModel.cpp \
         ../../src/TransmitController.cpp \
         ../../src/Protocol.cpp \
-    mcdserial.cpp
+    mcdserial.cpp \
+    mcdlineedit.cpp \
+    mcdpushbutton.cpp
 
 HEADERS += \
         mainwindow.h \
         ../../src/DataModel.h \
         ../../src/TransmitController.h \
         ../../src/Protocol.h \
-    mcdserial.h
+    mcdserial.h \
+    mcdlineedit.h \
+    mcdpushbutton.h
 
 FORMS += \
         mainwindow.ui

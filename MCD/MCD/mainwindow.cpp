@@ -11,10 +11,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    save_fields();
     delete ui;
 }
 
+void MainWindow::closeEvent(QCloseEvent *event) {
+    save_fields();
+}
 
 void MainWindow::init_fields() {
     ui->lineEdit_volume->setValidator(new QDoubleValidator);
@@ -35,20 +37,62 @@ void MainWindow::init_fields() {
 
     load_fields();
     set_ratio_enabled(ui->comboBox_dozators->currentIndex());
+
+    active_edit_ = ui->lineEdit_volume;
+    QObject::connect(ui->lineEdit_volume, &MCDLineEdit::focussed, this, &MainWindow::line_edit_focus);
+    QObject::connect(ui->lineEdit_feedrate, &MCDLineEdit::focussed, this, &MainWindow::line_edit_focus);
+    QObject::connect(ui->lineEdit_accel, &MCDLineEdit::focussed, this, &MainWindow::line_edit_focus);
+    QObject::connect(ui->lineEdit_reverse, &MCDLineEdit::focussed, this, &MainWindow::line_edit_focus);
+    QObject::connect(ui->lineEdit_ratioA, &MCDLineEdit::focussed, this, &MainWindow::line_edit_focus);
+    QObject::connect(ui->lineEdit_ratioB, &MCDLineEdit::focussed, this, &MainWindow::line_edit_focus);
+    QObject::connect(ui->lineEdit_gearA, &MCDLineEdit::focussed, this, &MainWindow::line_edit_focus);
+    QObject::connect(ui->lineEdit_gearB, &MCDLineEdit::focussed, this, &MainWindow::line_edit_focus);
+    QObject::connect(ui->pushButton_n0, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n1, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n2, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n3, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n4, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n5, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n6, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n7, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n8, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_n9, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+    QObject::connect(ui->pushButton_nd, &MCDPushButton::was_clicked, this, &MainWindow::add_text);
+
+    // ui->pushButton_stop->setStyleSheet("background-color: red");
+
 }
 
+void MainWindow::logger(const QString& text) {
+    ui->textEdit_log->append(text);
+}
+
+void MainWindow::line_edit_focus(MCDLineEdit* edit) {
+    active_edit_ = edit;
+    qDebug() << edit->objectName();
+    logger(edit->objectName());
+}
+
+void MainWindow::add_text(const QString& symbol) {
+    active_edit_->setText(active_edit_->text() + symbol);
+}
 
 void MainWindow::on_pushButton_com_clicked()
 {
     if (serial_.get_status()) {
+        serial_.disconnect();
         ui->pushButton_com->setText("Подключить");
         ui->frame_transmit->setEnabled(false);
-        serial_.disconnect();
     } else if (ui->comboBox_com->count() > 0) {
         ui->pushButton_com->setText("Отключить");
         ui->frame_transmit->setEnabled(true);
         QString port_name = ui->comboBox_com->currentText();
-        serial_.connect(port_name);
+        if (!serial_.connect(port_name)) {
+            QMessageBox::critical(this, "MONOROTOR COMMANDER DESKTOP",
+                                  "Ошибка при подключении по COM-порту. Перезарузите Блок управления и MONOROTOR COMMANDER DESKTOP");
+            ui->pushButton_com->setText("Подключить");
+            ui->frame_transmit->setEnabled(false);
+        }
     }
 }
 
@@ -142,6 +186,7 @@ void MainWindow::on_pushButton_start_clicked()
 
     start_command(model_data);
     qDebug() << "Reverse";
+    logger("Reverse");
     start_command(model_data_rev);
 }
 
@@ -193,4 +238,13 @@ void MainWindow::set_ratio_enabled(int index) {
 void MainWindow::on_comboBox_dozators_currentIndexChanged(int index)
 {
     set_ratio_enabled(index);
+}
+
+void MainWindow::on_pushButton_nc_clicked()
+{
+    QString temp = active_edit_->text();
+    if (temp.size() > 0) {
+        temp.resize(temp.size() - 1);
+    }
+    active_edit_->setText(temp);
 }

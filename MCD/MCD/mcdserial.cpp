@@ -25,6 +25,7 @@ bool MCDSerial::connect(const QString& port_name) {
         if (info.portName() == port_name) {
             internal_connect(info);
             if (!check_protocol()) {
+                connected_ = false;
                 return false;
             }
             connected_ = true;
@@ -37,7 +38,7 @@ bool MCDSerial::check_protocol() {
     bool result = false;
     write("=0");
     QEventLoop evloop;
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < wait_answer_times; i++) {
         QThread::msleep(1);
         evloop.processEvents();
     }
