@@ -83,6 +83,7 @@ void MainWindow::on_pushButton_com_clicked()
         serial_.disconnect();
         ui->pushButton_com->setText("Подключить");
         ui->frame_transmit->setEnabled(false);
+        transmit_data_.clear_story();
     } else if (ui->comboBox_com->count() > 0) {
         ui->pushButton_com->setText("Отключить");
         ui->frame_transmit->setEnabled(true);

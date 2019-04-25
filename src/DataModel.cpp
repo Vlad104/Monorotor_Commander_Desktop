@@ -92,3 +92,14 @@ void DataModel::set_ratio_A(double ratio_A) {
 void DataModel::set_ratio_B(double ratio_B) {
 	ratio_B_ = ratio_B;
 }
+
+void DataModel::clear() {
+    dozators_ = '2';
+    volume_ = 0.0;
+    feedrate_ = 0.0;
+    accel_ = 20;
+    gear_A_ = 1.0;
+    gear_B_ = 1.0;
+    ratio_A_ = 1.0;
+    ratio_B_ = 1.0;
+}

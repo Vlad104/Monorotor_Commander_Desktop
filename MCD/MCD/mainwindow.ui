@@ -29,7 +29,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Monorotor Commander Desctop</string>
+   <string>Monorotor Commander Desktop</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QFrame" name="frame_com">
@@ -437,6 +437,9 @@
         <property name="inputMethodHints">
          <set>Qt::ImhDigitsOnly</set>
         </property>
+        <property name="text">
+         <string>1000</string>
+        </property>
         <property name="maxLength">
          <number>15</number>
         </property>
@@ -512,6 +515,9 @@
         <property name="inputMethodHints">
          <set>Qt::ImhDigitsOnly</set>
         </property>
+        <property name="text">
+         <string>4060.9745</string>
+        </property>
         <property name="maxLength">
          <number>15</number>
         </property>
@@ -538,6 +544,9 @@
         </property>
         <property name="inputMethodHints">
          <set>Qt::ImhDigitsOnly</set>
+        </property>
+        <property name="text">
+         <string>4060.9745</string>
         </property>
         <property name="maxLength">
          <number>15</number>
@@ -1000,7 +1009,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>29</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">

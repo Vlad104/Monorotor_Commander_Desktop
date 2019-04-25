@@ -29,6 +29,8 @@ public:
 	void set_ratio_A(double ratio_A);
 	void set_ratio_B(double ratio_B);
 
+    void clear();
+
 private:
 	char dozators_;		// dozators mode
 	double volume_;		// ul

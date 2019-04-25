@@ -62,3 +62,8 @@ void TransmitController::clear_transmit_order() {
 		transmit_data_.pop();
 	}
 }
+
+void TransmitController::clear_story() {
+    clear_transmit_order();
+    prev_model_.clear();
+}
